@@ -107,6 +107,24 @@ function Home(props) {
                     weqid: 'WQ123',
                     noBookings: '1',
                     timing: '10.00 AM - 10.15 AM'
+                },
+                {
+                    slotid: 'SL03',
+                    weqid: 'WQ123',
+                    noBookings: '1',
+                    timing: '10.00 AM - 10.15 AM'
+                },
+                {
+                    slotid: 'SL02',
+                    weqid: 'WQ123',
+                    noBookings: '1',
+                    timing: '10.00 AM - 10.15 AM'
+                },
+                {
+                    slotid: 'SL03',
+                    weqid: 'WQ123',
+                    noBookings: '1',
+                    timing: '10.00 AM - 10.15 AM'
                 }
             ]
         }
@@ -114,7 +132,13 @@ function Home(props) {
 
     return (
         <React.Fragment>
-            <div className='filer'></div>
+            <div className='filter'>
+                <div className='booking-info-header'>Booking Info</div>
+                <div className='display-flex'>
+                    <div style={{ 'flexGrow': 1 }}>Calander</div>
+                    <div>Search</div>
+                </div>
+            </div>
             <div className='slots-section'>
                 {
                     slots.map((slot, index) => {
@@ -128,7 +152,16 @@ function Home(props) {
                                     {
                                         slot.data.map((item, _index) => {
                                             return (
-                                                <div key={_index} className='grid-item'></div>
+                                                <div key={_index} className='grid-item'>
+                                                    <div>
+                                                        <span className='sl-no'>Sl.01</span>
+                                                        <span className='booking-id'>WQ123245</span>
+                                                    </div>
+                                                    <div className='display-flex'>
+                                                        <div className='ppl-count'>2 People</div>
+                                                        <div className='duration'>10:00-10:40</div>
+                                                    </div>
+                                                </div>
                                             )
                                         })
                                     }
