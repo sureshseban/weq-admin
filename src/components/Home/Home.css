@@ -5,4 +5,36 @@
 .slots-section {
     height: calc(100vh - 174px);
     background-color: #ECF2F5;
+    padding: 0 15px 15px 15px;
+}
+.slots-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+    grid-gap: 15px;
+}
+.slots-heading {
+    height: 40px;
+    padding-top: 12.5px;
+    display: flex;
+}
+.grid-item {
+    height: 64px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 6px;
+    opacity: 1;
+}
+.slot-timing {
+    height: 15px;
+    background-color: yellow;
+}
+.booked-timing {
+    font: normal normal normal 12px/14px Roboto;
+    color: #7D909A;
+    opacity: 1;
+    flex-grow: 1;
+}
+.booked-count {
+    font: normal normal normal 12px/14px Roboto;
+    color: #183544;
+    opacity: 1;
 }
