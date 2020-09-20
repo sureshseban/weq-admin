@@ -1,0 +1,8 @@
+.filer {
+    height: 110px;
+    background-color: #ffffff;
+}
+.slots-section {
+    height: calc(100vh - 174px);
+    background-color: #ECF2F5;
+}
