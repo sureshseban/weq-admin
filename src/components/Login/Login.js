@@ -1,8 +1,10 @@
 import React from 'react'
 import { Formik } from 'formik'
+import './Login.css'
 import { Input, Form, SubmitButton } from 'formik-antd'
 import * as Yup from 'yup'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
+import { NavLink } from 'react-router-dom'
 
 function Login(props) {
 
@@ -23,34 +25,36 @@ function Login(props) {
 
     return (
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} >
-            <Form
-                name="normal_login"
-                className="login-form container"
-            >
-                <Form.Item
-                    name="username"
-                    hasFeedback
-                    showValidateSuccess
+            <div className='container'>
+                <Form
+                    name="normal_login"
+                    className="login-form"
                 >
-                    <Input name="username" autoComplete="off" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
-                </Form.Item>
-                <Form.Item
-                    name="password"
-                    hasFeedback
-                    showValidateSuccess
-                >
-                    <Input
+                    <Form.Item
+                        name="username"
+                        hasFeedback
+                        showValidateSuccess
+                    >
+                        <Input name="username" autoComplete="off" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                    </Form.Item>
+                    <Form.Item
                         name="password"
-                        prefix={<LockOutlined className="site-form-item-icon" />}
-                        type="password"
-                        placeholder="Password"
-                    />
-                </Form.Item>
-                <SubmitButton type="primary" className="login-form-button">
-                    Log in
-                    </SubmitButton>
-                    Or <a href="">register now!</a>
-            </Form>
+                        hasFeedback
+                        showValidateSuccess
+                    >
+                        <Input
+                            name="password"
+                            prefix={<LockOutlined className="site-form-item-icon" />}
+                            type="password"
+                            placeholder="Password"
+                        />
+                    </Form.Item>
+                    <SubmitButton type="primary" className="login-form-button">
+                        Log in
+                        </SubmitButton>
+                    Or <NavLink exact to="/">register now!</NavLink>
+                </Form>
+            </div>
         </Formik>
     )
 }

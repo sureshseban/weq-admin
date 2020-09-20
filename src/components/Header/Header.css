@@ -14,13 +14,10 @@
     font: normal normal bold 14px/16px Roboto;
 }
 
-.activeMenuLink a {
-    color: #6FAA00 !important;
+#nav a {
+    color: #FFFFFF;
 }
 
-a{
-    color: #FFFFFF !important;
-}
 .ant-menu-item a:hover{
     color: #FFFFFF;
 }

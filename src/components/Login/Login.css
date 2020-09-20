@@ -1,0 +1,10 @@
+.container {
+    height: 100vh;
+    background-color: #ECF2F5;
+}
+.login-form {
+    max-width: 500px;
+    margin: auto;
+    background: #ffffff;
+    padding: 10px;
+  }
