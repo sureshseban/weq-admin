@@ -1,8 +1,14 @@
 import React, { useState } from 'react'
 import './Visitors.css'
+import { DatePicker, Input } from 'antd'
+import moment from 'moment'
+const { RangePicker } = DatePicker;
 
 function Visitors(props) {
 
+    const dateFormat = 'DD/MM/YYYY'
+    const [startDate, setStartDate] = useState(moment(new Date(), dateFormat))
+    const [endDate, setEndDate] = useState(moment(new Date(), dateFormat))
     const [slots, setSlots] = useState(
         [
             {
@@ -56,13 +62,34 @@ function Visitors(props) {
         ]
     )
 
+    function onChange(dates) {
+        if (dates) {
+            setStartDate(dates[0])
+            setEndDate(dates[1])
+            console.log(startDate);
+            console.log(endDate)
+        }
+    }
+
+    function onSearch(text) {
+        console.log(text)
+    }
+
     return (
         <React.Fragment>
             <div className='filter'>
                 <div className='booking-info-header'>Visitors Info</div>
                 <div className='display-flex'>
-                    <div style={{ 'flexGrow': 1 }}>Calander</div>
-                    <div>Search</div>
+                    <div style={{ 'flexGrow': 1 }}>
+                        <RangePicker
+                            defaultValue={[startDate, endDate]}
+                            format={dateFormat}
+                            onChange={onChange}
+                        />
+                    </div>
+                    <div>
+                        <Input placeholder="Enter visitor name" allowClear onChange={(e) => onSearch(e.target.value)} />
+                    </div>
                 </div>
             </div>
             <div className='visitors-section'>
