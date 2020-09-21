@@ -17,6 +17,9 @@ function Header(props) {
                             <NavLink activeClassName='activeMenuLink' exact to="/home">Home</NavLink>
                         </li>
                         <li className="ant-menu-item ant-menu-item-only-child" role="menuitem">
+                            <NavLink activeClassName='activeMenuLink' exact to="/visitors">Visitors</NavLink>
+                        </li>
+                        <li className="ant-menu-item ant-menu-item-only-child" role="menuitem">
                             <NavLink activeClassName='activeMenuLink' exact to="/reports">Reports</NavLink>
                         </li>
                         <li className="ant-menu-item ant-menu-item-only-child" role="menuitem">

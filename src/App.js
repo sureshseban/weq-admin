@@ -8,6 +8,7 @@ import Login from './components/Login/Login';
 import ShopInfo from './components/ShopInfo/ShopInfo';
 import Header from './components/Header/Header'
 import Reports from './components/Reports/Reports';
+import Visitors from './components/Visitors/Visitors';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <React.Fragment>
           <Header />
           <Route exact path='/home' component={Home} ></Route>
+          <Route exact path='/visitors' component={Visitors} ></Route>
           <Route exact path='/shopinfo' component={ShopInfo} ></Route>
           <Route exact path='/reports' component={Reports} ></Route>
         </React.Fragment>

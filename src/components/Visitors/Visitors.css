@@ -1,0 +1,78 @@
+.filter {
+    height: 110px;
+    background-color: #ffffff;
+    padding: 20px 15px;
+}
+.visitors-section {
+    min-height: calc(100vh - 174px);
+    background-color: #ECF2F5;
+    padding: 15px;
+}
+.slots-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+    grid-gap: 15px;
+}
+.slots-heading {
+    height: 40px;
+    padding-top: 15px;
+    display: flex;
+}
+.grid-item {
+    height: 64px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 6px;
+    opacity: 1;
+    padding: 12px;
+}
+.booked-timing {
+    font: normal normal normal 12px/14px Roboto;
+    color: #7D909A;
+    opacity: 1;
+    flex-grow: 1;
+}
+.booked-count {
+    font: normal normal normal 12px/14px Roboto;
+    color: #183544;
+    opacity: 1;
+}
+.sl-no {
+    text-align: left;
+    font: normal normal normal 14px/20px Roboto;
+    letter-spacing: 0px;
+    color: #183544;
+    opacity: 1;
+}
+.booking-id {
+    text-align: left;
+    font: normal normal medium 14px/20px Roboto;
+    letter-spacing: 0px;
+    color: #183544;
+    opacity: 1;
+}
+.display-flex {
+    display: flex;
+}
+.ppl-count {
+    text-align: left;
+    font: normal normal normal 12px/20px Roboto;
+    letter-spacing: 0px;
+    color: #183544;
+    opacity: 1;
+    flex-grow: 1;
+}
+.duration {
+    text-align: right;
+    font: normal normal normal 12px/14px Roboto;
+    letter-spacing: 0px;
+    color: #7D909A;
+    opacity: 1;
+}
+.booking-info-header {
+    text-align: left;
+    font: normal normal normal 17px/20px Roboto;
+    letter-spacing: 0px;
+    color: #6FAA00;
+    opacity: 1;
+    padding-bottom: 15px;
+}

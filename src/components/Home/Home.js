@@ -136,7 +136,7 @@ function Home(props) {
                 <div className='booking-info-header'>Booking Info</div>
                 <div className='display-flex'>
                     <div style={{ 'flexGrow': 1 }}>Calander</div>
-                    <div>Search</div>
+                    {/* <div>Search</div> */}
                 </div>
             </div>
             <div className='slots-section'>
