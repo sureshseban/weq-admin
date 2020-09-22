@@ -1,4 +1,4 @@
-.container {
+/* .container {
     height: 100vh;
     background-color: #ECF2F5;
 }
@@ -7,4 +7,114 @@
     margin: auto;
     background: #ffffff;
     padding: 10px;
+  }
+
+.login-bg {
+    width: 100%;
+    height: 100%;
+} */
+
+.login-wrapper {
+    height: 100vh;
+    background-color: #ffffff;
+    display: flex;
+}
+
+.left-panel {
+    flex: 66%;
+}
+
+.login-logo {
+    position: fixed;
+    left: 100px;
+    top: 150px;
+    background-repeat: no-repeat;
+    width: 250px;
+    height: 45px;
+}
+
+.right-panel {
+    flex: 34%;
+    margin: auto;
+    margin-left: 10%;
+    text-align: start;
+}
+
+.right-panel-title {
+    font-size: 22px;
+    color: #183544;
+    padding-bottom: 50px;
+}
+
+.field-label {
+    color: #7d909a;
+    font-size: 14px;
+}
+
+.phone-input {
+    border: none;
+}
+
+.phone-input:focus {
+    border: none;
+    outline: none;
+}
+
+.input-wrapper {
+    border: 1px solid #7d909a;
+    border-radius: 6px;
+    width: 200px;
+    padding: 5px 10px;
+}
+
+.hyperlink-wrapper {
+    color: #183544;
+    font: 14px;
+    padding: 5px 0 30px 0;
+}
+
+.hyperlink-wrapper a {
+    color: #183544;
+    font-weight: 700;
+    color: #183544;
+}
+
+.partitioned {
+    padding-left: 15px;
+    letter-spacing: 42px;
+    border: 0;
+    background-image: linear-gradient(to left, black 70%, rgba(255, 255, 255, 0) 0%);
+    background-position: bottom;
+    background-size: 50px 1px;
+    background-repeat: repeat-x;
+    background-position-x: 35px;
+    width: 220px;
+    min-width: 220px;
+  }
+
+  .partitioned:focus {
+    border: none;
+    outline: none;
+  }
+  
+  .divInner{
+    left: 0;
+    position: sticky;
+  }
+  
+  .otp-wrapper{
+    width: 190px; 
+    overflow: hidden;
+    margin-bottom: 110px;
+    margin-top: 10px;
+  }
+
+  .login-btn {
+    background-color: #C0D000;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 6px;
+    padding: 10px 80px;
+    outline: none;
+    border: none;
+    margin-bottom: 20px;
   }
