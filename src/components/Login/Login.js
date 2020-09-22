@@ -50,7 +50,6 @@ function Login() {
                         <div className='ant-row ant-form-item'>
                             <button type="submit" className="login-btn">Login</button>
                         </div>
-
                         <div className="hyperlink-wrapper">
                             Not yet registered? <NavLink to="/">Register</NavLink>
                         </div>

@@ -52,17 +52,6 @@
     padding: 5px 10px;
 }
 
-.hyperlink-wrapper {
-    color: #183544;
-    font: 14px;
-}
-
-.hyperlink-wrapper a {
-    color: #183544;
-    font-weight: 700;
-    color: #183544;
-}
-
 .partitioned {
     padding-left: 15px;
     letter-spacing: 42px;
@@ -86,11 +75,6 @@
     position: sticky;
   }
   
-  .otp-wrapper{
-    width: 190px; 
-    overflow: hidden;
-  }
-
   .login-btn {
     background-color: #C0D000;
     box-shadow: 0px 3px 6px #00000029;

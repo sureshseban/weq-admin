@@ -21,7 +21,7 @@
 .right-panel {
     flex: 34%;
     margin: auto;
-    margin: 10% 5%;
+    margin: 5%;
     text-align: start;
 }
 
@@ -55,7 +55,6 @@
 .hyperlink-wrapper {
     color: #183544;
     font: 14px;
-    padding: 5px 0 30px 0;
 }
 
 .hyperlink-wrapper a {
