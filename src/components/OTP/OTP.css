@@ -21,7 +21,7 @@
 .right-panel {
     flex: 34%;
     margin: auto;
-    margin: 10% 5%;
+    margin: 10% 5% 0;
     text-align: start;
 }
 
@@ -87,6 +87,11 @@
     position: sticky;
   }
   
+  .otp-wrapper{
+    width: 190px; 
+    overflow: hidden;
+  }
+
   .login-btn {
     background-color: #C0D000;
     box-shadow: 0px 3px 6px #00000029;

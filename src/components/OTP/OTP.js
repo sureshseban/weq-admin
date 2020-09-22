@@ -1,19 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Formik } from 'formik'
-import './Login.css'
-import { Input, Form, SubmitButton } from 'formik-antd'
+import './OTP.css'
+import { Input, Form } from 'formik-antd'
 import * as Yup from 'yup'
 import { UserOutlined } from '@ant-design/icons'
 import { NavLink } from 'react-router-dom'
 
-function Login() {
+function OTP() {
 
     const initialValues = {
-        username: ''
+        username: '',
+        otp: ''
     }
 
     const validationSchema = Yup.object({
-        username: Yup.string().required('Mobile Number cannot be empty.')
+        username: Yup.string().required('Mobile Number cannot be empty.'),
+        otp: Yup.string().required('OTP cannot be empty.')
     })
 
     const onSubmit = values => {
@@ -47,10 +49,26 @@ function Login() {
                         >
                             <Input name="username" autoComplete="off" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Mobile Number" />
                         </Form.Item>
-                        <div className='ant-row ant-form-item'>
-                            <button type="submit" className="login-btn">Login</button>
+                        <div className="hyperlink-wrapper">
+                            Didin’t receieve OTP? <a href="/">Resend OTP</a>
                         </div>
-
+                        <div className="field-label">
+                            Enter OTP
+                        </div>
+                        <div className="otp-wrapper">
+                            <div className="divInner">
+                                <Form.Item
+                                    name='otp'
+                                >
+                                    <Input name='otp' className="partitioned" type="text"
+                                        autoComplete="off"
+                                        maxLength="4" />
+                                    {/* onInput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" */}
+                                    {/* onKeyPress="if(this.value.length==4) return false;" */}
+                                </Form.Item>
+                            </div>
+                        </div>
+                        <button className="login-btn">Verify OTP</button>
                         <div className="hyperlink-wrapper">
                             Not yet registered? <NavLink to="/">Register</NavLink>
                         </div>
@@ -61,4 +79,4 @@ function Login() {
     )
 }
 
-export default Login
+export default OTP

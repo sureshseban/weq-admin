@@ -9,12 +9,14 @@ import ShopInfo from './components/ShopInfo/ShopInfo';
 import Header from './components/Header/Header'
 import Reports from './components/Reports/Reports';
 import Visitors from './components/Visitors/Visitors';
+import OTP from './components/OTP/OTP';
 
 function App() {
   return (
     <Router>
       <Switch>
         <Route exact path='/login' component={Login} ></Route>
+        <Route exact path='/otp' component={OTP} ></Route>
         <Route exact path='/' component={Register} ></Route>
         <React.Fragment>
           <Header />
