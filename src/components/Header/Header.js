@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import './Header.css'
-const logo = require('../../assets/WEQ-logo.svg');
+const logo = require('../../assets/images/WEQ-logo.svg');
 
 function Header(props) {
     return (
