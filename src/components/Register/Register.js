@@ -4,7 +4,7 @@ import './Register.css'
 import { Input, Form } from 'formik-antd'
 import * as Yup from 'yup'
 import { NavLink } from 'react-router-dom'
-import { Spin } from 'antd';
+import { Spin, Alert } from 'antd';
 import OtpInput from 'react-otp-input';
 
 function Register() {
@@ -23,10 +23,10 @@ function Register() {
     const [showOTPScreen, setShowOTPScreen] = useState(false)
 
     const validationSchema = Yup.object({
-        userName: Yup.string().required('Mobile Number cannot be empty.'),
-        brandName: Yup.string().required('Brand Name cannot be empty.'),
-        firstName: Yup.string().required('First Name cannot be empty.'),
-        lastName: Yup.string().required('Last Name cannot be empty.')
+        userName: Yup.string().required('Mobile Number is required!'),
+        brandName: Yup.string().required('Brand Name is required!'),
+        firstName: Yup.string().required('First Name is required!'),
+        lastName: Yup.string().required('Last Name is required!')
     })
 
     const onSubmit = values => {
@@ -126,10 +126,15 @@ function Register() {
                                         isInputNum
                                     />
                                 </div>
-                                <button className="login-btn">Submit</button>
+                                <div className='ant-form-item'>
+                                    <button className="login-btn">Submit</button>
+                                </div>
                             </Form>
                         </Formik> : null
                     }
+                    <div className="ant-form-item">
+                        <Alert message="incorrect username or password" type="error" showIcon closable />
+                    </div>
                     <div className="hyperlink-wrapper">
                         Already have an Account? <NavLink to="/login">Login</NavLink>
                     </div>
