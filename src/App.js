@@ -9,6 +9,7 @@ import ShopInfo from './components/ShopInfo/ShopInfo';
 import Header from './components/Header/Header'
 import Reports from './components/Reports/Reports';
 import Visitors from './components/Visitors/Visitors';
+import AddBranch from './components/AddBranch/AddBranch';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route exact path='/visitors' component={Visitors} ></Route>
           <Route exact path='/shopinfo' component={ShopInfo} ></Route>
           <Route exact path='/reports' component={Reports} ></Route>
+          <Route exact path='/add-branch' component={AddBranch} ></Route>
         </React.Fragment>
       </Switch>
     </Router>

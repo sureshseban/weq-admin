@@ -53,7 +53,7 @@ function Login(props) {
     const onOTPSubmit = () => {
         setSpinningAll(true)
         const user = JSON.parse(localStorage.getItem('user'))
-        axios.post('http://localhost/superadmin/auth/login', {
+        axios.post('http://localhost/superadmin/auth/verify', {
             PhoneNumber: user.PhoneNumber,
             code: otp
         }).then(resp => {

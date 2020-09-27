@@ -4,10 +4,11 @@ import './Register.css'
 import { Input, Form } from 'formik-antd'
 import * as Yup from 'yup'
 import { NavLink } from 'react-router-dom'
-import { Spin, Alert } from 'antd';
-import OtpInput from 'react-otp-input';
+import { Spin, Alert } from 'antd'
+import OtpInput from 'react-otp-input'
+import axios from 'axios'
 
-function Register() {
+function Register(props) {
 
     const initialValues = {
         brandName: '',
@@ -21,24 +22,57 @@ function Register() {
     const [spinning, setSpinning] = useState(false)
     const [spinningAll, setSpinningAll] = useState(false)
     const [showOTPScreen, setShowOTPScreen] = useState(false)
+    const [showAlert, setShowAlert] = useState(false)
+
 
     const validationSchema = Yup.object({
-        userName: Yup.string().required('Mobile Number is required!'),
-        brandName: Yup.string().required('Brand Name is required!'),
-        firstName: Yup.string().required('First Name is required!'),
-        lastName: Yup.string().required('Last Name is required!')
+        userName: Yup.string().required('Mobile Number required!'),
+        brandName: Yup.string().required('Brand Name required!'),
+        firstName: Yup.string().required('First Name required!'),
+        lastName: Yup.string().required('Last Name required!')
     })
 
     const onSubmit = values => {
-        console.log('Form Data', values);
         setSpinning(true)
-        setShowOTPScreen(true)
+        axios.post('http://localhost/superadmin/auth/register', {
+            ClientName: values.ClientName,
+            FirstName: values.FirstName,
+            LastName: values.LastName,
+            UserEmail: '',
+            PhoneNumber: values.PhoneNumber
+        }).then(resp => {
+            setSpinning(false)
+            if (resp.data.IsExist) {
+                setShowAlert(true)
+            } else {
+                const user = {
+                    Name: resp.data.otp.Name,
+                    PhoneNumber: values.username,
+                    RoleID: resp.data.otp.RoleID,
+                    UserID: resp.data.otp.UserID
+                }
+                localStorage.setItem('user', JSON.stringify(user))
+                setShowOTPScreen(true)
+            }
+        }).catch(err => {
+            setSpinning(false)
+            console.log(err)
+        })
     }
 
     const onOTPSubmit = values => {
-        console.log('Form Data', otp);
-        setSpinning(false)
         setSpinningAll(true)
+        const user = JSON.parse(localStorage.getItem('user'))
+        axios.post('http://localhost/superadmin/auth/verify', {
+            PhoneNumber: user.PhoneNumber,
+            code: otp
+        }).then(resp => {
+            setSpinningAll(false)
+            props.history.push("/home")
+        }).catch(err => {
+            setSpinningAll(false)
+            console.log(err)
+        })
     }
 
     const handleChange = otp => {
@@ -131,10 +165,11 @@ function Register() {
                                 </div>
                             </Form>
                         </Formik> : null
+                    }{
+                        showAlert ? <div className="ant-form-item">
+                            <Alert message="mobile number already exists" type="error" showIcon closable />
+                        </div> : null
                     }
-                    <div className="ant-form-item">
-                        <Alert message="incorrect username or password" type="error" showIcon closable />
-                    </div>
                     <div className="hyperlink-wrapper">
                         Already have an Account? <NavLink to="/login">Login</NavLink>
                     </div>
