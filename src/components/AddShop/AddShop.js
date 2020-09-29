@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './AddBranch.css'
+import './AddShop.css'
 import { Formik } from 'formik'
 import { Input, Form } from 'formik-antd'
 import * as Yup from 'yup'
@@ -9,7 +9,7 @@ import OtpInput from 'react-otp-input';
 import axios from 'axios'
 import LocationPicker from 'react-location-picker';
 
-function AddBranch(props) {
+function AddShop(props) {
 
     const initialValues = {
         ShopName: '',
@@ -52,9 +52,6 @@ function AddBranch(props) {
             <div className='branch-details'>
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} >
                     <Form>
-                        <div className="ant-form-item">
-                            Add/Edit Branch Details
-                        </div>
                         <div style={{ display: 'flex' }}>
                             <div className='ant-col-xs-12' style={{ paddingRight: '8px' }} >
                                 <div className="field-label">
@@ -189,10 +186,30 @@ function AddBranch(props) {
                 </Formik>
             </div>
             <div className='slot-settings'>
-                2
+                <div className='slot-settings-header ant-form-item'>Slot Settings</div>
+                <div className='ant-form-item' style={{ display: 'flex' }}>
+                    <div className='settings-label'>Working Days</div>
+                    <div className='settings-values'>data</div>
+                </div>
+                <div className='ant-form-item' style={{ display: 'flex' }}>
+                    <div className='settings-label'>Working Time</div>
+                    <div className='settings-values'>
+                        <input name="WorkingTime" autoComplete="off" placeholder="Location" />
+                    </div>
+                </div>
+                <div className='ant-form-item' style={{ display: 'flex' }}>
+                    <div className='settings-label'>Slot Duration</div>
+                    <div className='settings-values'>data</div>
+                </div>
+                <div className='ant-form-item' style={{ display: 'flex' }}>
+                    <div className='settings-label'>Max. serviceable Queue</div>
+                    <div className='settings-values'>
+                        <input name="QueueSize" autoComplete="off" placeholder="Location" />
+                    </div>
+                </div>
             </div>
         </div>
     )
 }
 
-export default AddBranch
+export default AddShop

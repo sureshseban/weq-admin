@@ -1,0 +1,29 @@
+.add-bracnch-section {
+    min-height: calc(100vh - 64px);
+    background-color: #ECF2F5;
+    padding: 15px;
+    display: flex;
+}
+.branch-details {
+    width: 40%;
+    padding: 15px;
+}
+.slot-settings {
+    width: 60%;
+    background-color: #ffffff;
+    padding: 30px;
+}
+.slot-settings-header {
+    text-align: left;
+    font: normal normal normal 18px/21px Roboto;
+    letter-spacing: 0px;
+    color: #183544;
+    text-shadow: 0px 0px 10px #FFFFFF29;
+    opacity: 1
+}
+.settings-label {
+    width: 40%;
+}
+.settings-values {
+    width: 60%;
+}
