@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import './Home.css'
+import './TodaysBookings.css'
 import { DatePicker } from 'antd'
 import moment from 'moment'
 const { RangePicker } = DatePicker;
 
-function Home(props) {
+function TodaysBookings(props) {
 
     const dateFormat = 'DD/MM/YYYY'
     const [startDate, setStartDate] = useState(moment(new Date(), dateFormat))
@@ -129,7 +129,7 @@ function Home(props) {
 
     return (
         <React.Fragment>
-            <div className='filter'>
+            {/* <div className='filter'>
                 <div className='booking-info-header'>Booking Info</div>
                 <div className='display-flex'>
                     <div style={{ 'flexGrow': 1 }}>
@@ -140,7 +140,7 @@ function Home(props) {
                         />
                     </div>
                 </div>
-            </div>
+            </div> */}
             <div className='slots-section'>
                 {
                     slots.map((slot, index) => {
@@ -177,4 +177,4 @@ function Home(props) {
     )
 }
 
-export default Home
+export default TodaysBookings

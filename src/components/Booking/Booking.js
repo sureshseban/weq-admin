@@ -1,25 +1,17 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 import { Route, Switch } from 'react-router-dom'
-import Home from '../Home/Home';
-import Visitors from '../Visitors/Visitors';
+import TodaysBookings from '../TodaysBookings/TodaysBookings';
+import PastBookings from '../PastBookings/PastBookings';
+import Header from '../Header/Header'
 
 function Booking(props) {
     console.log(props);
     return (
         <React.Fragment>
-            <div>This is Header</div>
-            <ul >
-                <li>
-                    <NavLink to={`${props.match.path}`}>Home</NavLink>
-                </li>
-                <li>
-                    <NavLink to={`${props.match.path}/visitors`}>Visitors</NavLink>
-                </li>
-            </ul>
+            <Header></Header>
             <Switch>
-                <Route exact path={`${props.match.path}`} component={Home} ></Route>
-                <Route exact path={`${props.match.path}/visitors`} component={Visitors} ></Route>
+                <Route exact path={`${props.match.path}`} component={TodaysBookings} ></Route>
+                <Route exact path={`${props.match.path}/pastbookings`} component={PastBookings} ></Route>
             </Switch>
         </React.Fragment>
     )

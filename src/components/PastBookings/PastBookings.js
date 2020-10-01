@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import './Visitors.css'
+import './PastBookings.css'
 import { DatePicker, Input } from 'antd'
 import moment from 'moment'
 const { RangePicker } = DatePicker;
 
-function Visitors(props) {
+function PastBookings(props) {
 
     const dateFormat = 'DD/MM/YYYY'
     const [startDate, setStartDate] = useState(moment(new Date(), dateFormat))
@@ -77,9 +77,8 @@ function Visitors(props) {
 
     return (
         <React.Fragment>
-            <div className='filter'>
-                <div className='booking-info-header'>Visitors Info</div>
-                <div className='display-flex'>
+            <div className='visitors-section'>
+                <div className='display-flex ant-form-item'>
                     <div style={{ 'flexGrow': 1 }}>
                         <RangePicker
                             defaultValue={[startDate, endDate]}
@@ -91,8 +90,6 @@ function Visitors(props) {
                         <Input placeholder="Enter visitor name" allowClear onChange={(e) => onSearch(e.target.value)} />
                     </div>
                 </div>
-            </div>
-            <div className='visitors-section'>
                 <div className='slots-grid'>
                     {
                         slots.map((item, index) => {
@@ -116,4 +113,4 @@ function Visitors(props) {
     )
 }
 
-export default Visitors
+export default PastBookings
