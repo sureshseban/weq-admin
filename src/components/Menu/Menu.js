@@ -20,6 +20,9 @@ function Menu(props) {
                         <li className="ant-menu-item ant-menu-item-only-child" role="menuitem">
                             <NavLink activeClassName='activeMenuLink' exact to="/add-shop">Add Shop</NavLink>
                         </li>
+                        <li className="ant-menu-item ant-menu-item-only-child" role="menuitem">
+                            <NavLink activeClassName='activeMenuLink' exact to="/login">Signout</NavLink>
+                        </li>
                     </ul>
                 </div>
             </div>
