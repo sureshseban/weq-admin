@@ -1,13 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './AddShop.css'
 import { Formik } from 'formik'
-import { Input, Form, TimePicker,InputNumber } from 'formik-antd'
+import { Input, Form, TimePicker } from 'formik-antd'
 import * as Yup from 'yup'
-import axios from 'axios'
-import LocationPicker from 'react-location-picker';
+import LocationPicker from 'react-location-picker'
 import moment from 'moment'
 
-function AddShop(props) {
+function AddShop() {
 
     const initialValues = {
         ShopName: '',

@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { DatePicker, Input } from 'antd'
+import { Input } from 'antd'
 import './MyShops.css'
 const logo = require('../../assets/images/Shopping Cart-ico.svg');
 const pointer = require('../../assets/images/Pointer.svg');
 
-function MyShops(props) {
+function MyShops() {
 
     const [shops, setShops] = useState([
         {
@@ -58,7 +58,7 @@ function MyShops(props) {
                                     <div className='info'>
                                         <div className='branch-names'>Lulu Mart</div>
                                         <div className='shop-names ant-form-item'>Lulu Mart</div>
-                                        <div className='shop-address'><img src={pointer} />  Lulu Mart</div>
+                                        <div className='shop-address'><img alt='' src={pointer} />  Lulu Mart</div>
                                     </div>
                                 </div>
                             )

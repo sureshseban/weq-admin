@@ -1,14 +1,8 @@
 import React, { useState } from 'react'
 import './TodaysBookings.css'
-import { DatePicker } from 'antd'
-import moment from 'moment'
-const { RangePicker } = DatePicker;
 
-function TodaysBookings(props) {
+function TodaysBookings() {
 
-    const dateFormat = 'DD/MM/YYYY'
-    const [startDate, setStartDate] = useState(moment(new Date(), dateFormat))
-    const [endDate, setEndDate] = useState(moment(new Date(), dateFormat))
     const [slots, setSlots] = useState([
         {
             timing: '10.00 AM',
@@ -118,29 +112,8 @@ function TodaysBookings(props) {
         }
     ])
 
-    function onChange(dates) {
-        if (dates) {
-            setStartDate(dates[0])
-            setEndDate(dates[1])
-            console.log(startDate);
-            console.log(endDate)
-        }
-    }
-
     return (
         <React.Fragment>
-            {/* <div className='filter'>
-                <div className='booking-info-header'>Booking Info</div>
-                <div className='display-flex'>
-                    <div style={{ 'flexGrow': 1 }}>
-                        <RangePicker
-                            defaultValue={[startDate, endDate]}
-                            format={dateFormat}
-                            onChange={onChange}
-                        />
-                    </div>
-                </div>
-            </div> */}
             <div className='slots-section'>
                 {
                     slots.map((slot, index) => {
