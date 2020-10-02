@@ -29,10 +29,39 @@
     grid-template-columns: repeat(3, minmax(0,1fr));
     grid-gap: 15px;
 }
-.grid-item {
-    height: 96px;
+.shop-grid-item {
+    height: 108px;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border-radius: 6px;
     opacity: 1;
     padding: 12px;
+    display: flex;
+}
+.img {
+    height: 84px;
+    width: 84px;
+}
+.info {
+    width: 70%;
+}
+.shop-names {
+    text-align: left;
+    font: normal normal normal 18px/20px Roboto;
+    letter-spacing: 0px;
+    color: #183544;
+    opacity: 1;
+}
+.shop-address {
+    text-align: left;
+    font: normal normal normal 14px/16px Roboto;
+    letter-spacing: 0px;
+    color: #183544;
+    opacity: 1;
+}
+.branch-names {
+    text-align: left;
+    font: normal normal normal 12px/20px Roboto;
+    letter-spacing: 0px;
+    color: #7D909A;
+    opacity: 1;
 }

@@ -5,11 +5,11 @@
     display: flex;
 }
 .branch-details {
-    width: 40%;
+    width: 50%;
     padding: 15px;
 }
 .slot-settings {
-    width: 60%;
+    width: 50%;
     background-color: #ffffff;
     padding: 30px;
 }
@@ -26,4 +26,16 @@
 }
 .settings-values {
     width: 60%;
+}
+.selected-days {
+    background: #183544 0% 0% no-repeat padding-box;
+    border-radius: 4px;
+    opacity: 1;
+    margin-right: 14px;
+    height: 32px;
+    width: 32px;
+    margin-right: 14px;
+    color: #ffffff;
+    text-align: center;
+    padding-top: 5px;
 }

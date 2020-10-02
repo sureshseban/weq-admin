@@ -1,20 +1,18 @@
 import React, { useState } from 'react'
 import './AddShop.css'
 import { Formik } from 'formik'
-import { Input, Form } from 'formik-antd'
+import { Input, Form, TimePicker,InputNumber } from 'formik-antd'
 import * as Yup from 'yup'
-import { NavLink } from 'react-router-dom'
-import { Spin, Alert } from 'antd';
-import OtpInput from 'react-otp-input';
 import axios from 'axios'
 import LocationPicker from 'react-location-picker';
+import moment from 'moment'
 
 function AddShop(props) {
 
     const initialValues = {
         ShopName: '',
         Category: '',
-        PrimaryContact: '',
+        Email: '',
         SecondaryContact: '',
         BranchSupervisorRequired: false,
         BranchSupervisorContact: '',
@@ -22,7 +20,11 @@ function AddShop(props) {
         StreetName: '',
         City: '',
         State: '',
-        Location: ''
+        Location: '',
+        StartTime: '',
+        EndTime: '',
+        SlotDuration: '',
+        MaxQueue: ''
     }
 
     const defaultPosition = {
@@ -40,18 +42,26 @@ function AddShop(props) {
         Building: Yup.string().required('Building required!'),
         StreetName: Yup.string().required('Street Name required!'),
         City: Yup.string().required('City required!'),
-        State: Yup.string().required('State required!')
+        State: Yup.string().required('State required!'),
+        SlotDuration: Yup.number().required('Slot Duration required!'),
+        MaxQueue: Yup.number().required('Queue size required!'),
+        Location: Yup.string().required('Location required!'),
+        StartTime: Yup.string().required('Start Time required!'),
+        EndTime: Yup.string().required('End Time required!'),
+        Email: Yup.string().email('Invalid Email!')
     })
 
     const onSubmit = values => {
         console.log('values', values);
+        const time = moment(new Date(values.StartTime)).format("HH:MM:00")
+        console.log(time);
     }
 
     return (
-        <div className='add-bracnch-section'>
-            <div className='branch-details'>
-                <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} >
-                    <Form>
+        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} >
+            <Form>
+                <div className='add-bracnch-section'>
+                    <div className='branch-details'>
                         <div style={{ display: 'flex' }}>
                             <div className='ant-col-xs-12' style={{ paddingRight: '8px' }} >
                                 <div className="field-label">
@@ -82,28 +92,24 @@ function AddShop(props) {
                             Contact
                         </div>
                         <div style={{ display: 'flex' }}>
-                            <div className='ant-col-xs-12' style={{ paddingRight: '8px' }} >
-                                <div className="field-label">
-                                    Primary Contact
-                        </div>
-                                <Form.Item
-                                    name="PrimaryContact"
-                                    hasFeedback
-                                    showValidateSuccess
-                                >
-                                    <Input name="PrimaryContact" autoComplete="off" placeholder="Primary Contact" />
-                                </Form.Item>
-                            </div>
-                            <div className='ant-col-xs-12' style={{ paddingLeft: '8px' }}>
+                            <div className='ant-col-xs-12' style={{ paddingRight: '8px' }}>
                                 <div className="field-label">
                                     Secondary Contact
                         </div>
                                 <Form.Item
                                     name="SecondaryContact"
-                                    hasFeedback
-                                    showValidateSuccess
                                 >
                                     <Input name="SecondaryContact" autoComplete="off" placeholder="Secondary Contact" />
+                                </Form.Item>
+                            </div>
+                            <div className='ant-col-xs-12' style={{ paddingLeft: '8px' }}>
+                                <div className="field-label">
+                                    Email
+                        </div>
+                                <Form.Item
+                                    name="Email"
+                                >
+                                    <Input name="Email" autoComplete="off" placeholder="Email" />
                                 </Form.Item>
                             </div>
                         </div>
@@ -182,33 +188,81 @@ function AddShop(props) {
                                 onChange={handleLocationChange}
                             />
                         </div>
-                    </Form>
-                </Formik>
-            </div>
-            <div className='slot-settings'>
-                <div className='slot-settings-header ant-form-item'>Slot Settings</div>
-                <div className='ant-form-item' style={{ display: 'flex' }}>
-                    <div className='settings-label'>Working Days</div>
-                    <div className='settings-values'>data</div>
-                </div>
-                <div className='ant-form-item' style={{ display: 'flex' }}>
-                    <div className='settings-label'>Working Time</div>
-                    <div className='settings-values'>
-                        <input name="WorkingTime" autoComplete="off" placeholder="Location" />
+                    </div>
+                    <div className='slot-settings'>
+                        <div className='slot-settings-header ant-form-item'>Slot Settings</div>
+                        <div className='ant-form-item' style={{ display: 'flex' }}>
+                            <div className='settings-label'>Working Days</div>
+                            <div className='settings-values'>
+                                <div className='display-flex'>
+                                    <div className="selected-days">M</div>
+                                    <div className="selected-days">T</div>
+                                    <div className="selected-days">W</div>
+                                    <div className="selected-days">T</div>
+                                    <div className="selected-days">F</div>
+                                    <div className="selected-days">S</div>
+                                    <div className="selected-days">S</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style={{ display: 'flex' }}>
+                            <div className='settings-label'>Working Start Time</div>
+                            <div className='settings-values'>
+                                <Form.Item
+                                    name="StartTime"
+                                    hasFeedback
+                                    showValidateSuccess
+                                >
+                                    <TimePicker style={{ width: '100%' }}
+                                        placeholder="Select Start Time"
+                                        name='StartTime'
+                                        format='h:mm a'></TimePicker>
+                                </Form.Item>
+                            </div>
+                        </div>
+                        <div style={{ display: 'flex' }}>
+                            <div className='settings-label'>Working End Time</div>
+                            <div className='settings-values'>
+                                <Form.Item
+                                    name="EndTime"
+                                    hasFeedback
+                                    showValidateSuccess
+                                >
+                                    <TimePicker style={{ width: '100%' }} placeholder="Select End Time" name='EndTime' format='h:mm a'></TimePicker>
+                                </Form.Item>
+                            </div>
+                        </div>
+                        <div style={{ display: 'flex' }}>
+                            <div className='settings-label'>Slot Duration</div>
+                            <div className='settings-values'>
+                                <Form.Item
+                                    name="SlotDuration"
+                                    hasFeedback
+                                    showValidateSuccess
+                                >
+                                    <Input style={{ width: '100%' }} name="SlotDuration" autoComplete="off" placeholder="Slot Duration in minutes" />
+                                </Form.Item>
+                            </div>
+                        </div>
+                        <div style={{ display: 'flex' }}>
+                            <div className='settings-label'>Max. serviceable Queue</div>
+                            <div className='settings-values'>
+                                <Form.Item
+                                    name="MaxQueue"
+                                    hasFeedback
+                                    showValidateSuccess
+                                >
+                                    <Input style={{ width: '100%' }} name="MaxQueue" autoComplete="off" placeholder="Max. serviceable Queue in numbers" />
+                                </Form.Item>
+                            </div>
+                        </div>
+                        <div className='ant-form-item'>
+                            <button className="login-btn">Submit</button>
+                        </div>
                     </div>
                 </div>
-                <div className='ant-form-item' style={{ display: 'flex' }}>
-                    <div className='settings-label'>Slot Duration</div>
-                    <div className='settings-values'>data</div>
-                </div>
-                <div className='ant-form-item' style={{ display: 'flex' }}>
-                    <div className='settings-label'>Max. serviceable Queue</div>
-                    <div className='settings-values'>
-                        <input name="QueueSize" autoComplete="off" placeholder="Location" />
-                    </div>
-                </div>
-            </div>
-        </div>
+            </Form>
+        </Formik>
     )
 }
 

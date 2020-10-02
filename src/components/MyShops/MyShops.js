@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { DatePicker, Input } from 'antd'
 import './MyShops.css'
+const logo = require('../../assets/images/Shopping Cart-ico.svg');
+const pointer = require('../../assets/images/Pointer.svg');
 
 function MyShops(props) {
 
@@ -49,15 +51,15 @@ function MyShops(props) {
                     {
                         shops.map((item, index) => {
                             return (
-                                <div key={index} className='grid-item'>
-                                    {/* <div>
-                                        <span className='sl-no'>Sajeesh Sivanandan</span>
-                                        <span className='booking-id'>WQ123245</span>
+                                <div key={index} className='shop-grid-item'>
+                                    <div className='img'>
+                                        <img alt="shop" src={logo} />
                                     </div>
-                                    <div className='display-flex'>
-                                        <div className='ppl-count'>with 2 visitors</div>
-                                        <div className='duration'>10:00-10:40</div>
-                                    </div> */}
+                                    <div className='info'>
+                                        <div className='branch-names'>Lulu Mart</div>
+                                        <div className='shop-names ant-form-item'>Lulu Mart</div>
+                                        <div className='shop-address'><img src={pointer} />  Lulu Mart</div>
+                                    </div>
                                 </div>
                             )
                         })
