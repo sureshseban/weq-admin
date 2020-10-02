@@ -11,16 +11,11 @@ function Header(props) {
             <div className="shop-name">
                 Lulu Mart
             </div>
-            {/* <div>This is Header</div>
-            <ul >
-                <li>
-                    <NavLink to={`${props.match.path}`}>Home</NavLink>
-                </li>
-                <li>
-                    <NavLink to={`${props.match.path}/visitors`}>Visitors</NavLink>
-                </li>
-            </ul>
-            */}
+            <div className='sub-menu'>
+                <NavLink activeClassName='activeMenuLink' exact to='/home/'>Today’s Bookings</NavLink>
+                <NavLink activeClassName='activeMenuLink' exact to='/home/pastbookings'>Past Bookings</NavLink>
+                <NavLink activeClassName='activeMenuLink' exact to='/home/shopinfo'>Shop Info</NavLink>
+            </div>
         </header>
     )
 }

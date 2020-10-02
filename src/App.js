@@ -7,7 +7,7 @@ import Login from './components/Login/Login';
 import Menu from './components/Menu/Menu'
 import AddShop from './components/AddShop/AddShop';
 import MyShops from './components/MyShops/MyShops';
-import Booking from './components/Booking/Booking';
+import Home from './components/Home/Home';
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
           <Menu />
           <Route exact path='/add-shop' component={AddShop} ></Route>
           <Route exact path='/my-shops' component={MyShops} ></Route>
-          <Route path='/booking' component={Booking} ></Route>
+          <Route path='/home' component={Home} ></Route>
         </React.Fragment>
       </Switch>
     </Router>

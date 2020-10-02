@@ -1,5 +1,6 @@
 .home-header {
     padding: 15px;
+    background-color: #ffffff;
 }
 .breadcrum {
     text-align: left;
@@ -13,4 +14,10 @@
     letter-spacing: 0px;
     color: #183544;
     opacity: 1;
+}
+.sub-menu {
+    text-align: center;
+}
+.sub-menu a {
+    padding: 0 10px;
 }
