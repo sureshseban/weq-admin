@@ -56,7 +56,7 @@ function MyShops() {
                                         </div>
                                         <div className='info'>
                                             <div className='shop-names'>{item.BranchName}</div>
-                                            <div>Categoty</div>
+                                            <div>{item.CategoryName}</div>
                                             <div className='shop-address'><img alt='' src={pointer} />  {item.BuildingNumber} {item.StreetName} {item.City}  {item.State}</div>
                                         </div>
                                     </div>
