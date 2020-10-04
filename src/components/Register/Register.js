@@ -63,7 +63,7 @@ function Register(props) {
     const onOTPSubmit = values => {
         setSpinningAll(true)
         const user = JSON.parse(localStorage.getItem('user'))
-        axios.post('http://localhost/superadmin/auth/verify', {
+        axios.post('http://ec2-52-15-191-227.us-east-2.compute.amazonaws.com/superadmin/auth/verify', {
             PhoneNumber: user.PhoneNumber,
             code: otp
         }).then(resp => {

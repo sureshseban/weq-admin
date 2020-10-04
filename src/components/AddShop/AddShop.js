@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './AddShop.css'
 import { Formik } from 'formik'
-import { Input, Form, TimePicker } from 'formik-antd'
+import { Input, Form, TimePicker, Select } from 'formik-antd'
 import * as Yup from 'yup'
 import LocationPicker from 'react-location-picker'
 import moment from 'moment'
+import axios from 'axios'
+import { Spin } from 'antd'
 
 function AddShop() {
 
@@ -19,11 +21,12 @@ function AddShop() {
         StreetName: '',
         City: '',
         State: '',
-        Location: '',
         StartTime: '',
         EndTime: '',
         SlotDuration: '',
-        MaxQueue: ''
+        MaxQueue: '',
+        Pincode: '',
+        Country: ''
     }
 
     const defaultPosition = {
@@ -32,7 +35,7 @@ function AddShop() {
     }
 
     const handleLocationChange = values => {
-        console.log(values)
+        setLocation(values.position)
     }
 
     const validationSchema = Yup.object({
@@ -44,17 +47,45 @@ function AddShop() {
         State: Yup.string().required('State required!'),
         SlotDuration: Yup.number().required('Slot Duration required!'),
         MaxQueue: Yup.number().required('Queue size required!'),
-        Location: Yup.string().required('Location required!'),
-        StartTime: Yup.string().required('Start Time required!'),
-        EndTime: Yup.string().required('End Time required!'),
+        StartTime: Yup.string().nullable().required('Start Time required!'),
+        EndTime: Yup.string().nullable().required('End Time required!'),
         Email: Yup.string().email('Invalid Email!')
     })
 
     const onSubmit = values => {
         console.log('values', values);
-        const time = moment(new Date(values.StartTime)).format("HH:MM:00")
-        console.log(time);
+        const _StartDateTime = new Date(values.StartTime)
+        const _StartTime = _StartDateTime.toLocaleTimeString('en-GB')
+        const _EndDateTime = new Date(values.EndTime)
+        const _EndTime = _EndDateTime.toLocaleTimeString('en-GB')
+        console.log(_StartTime);
+        console.log(_EndTime);
     }
+
+    const [categories, setCategories] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
+    const [location, setLocation] = useState({
+        lat: 12.9716,
+        lng: 77.5946
+    })
+
+    useEffect(() => {
+        setIsLoading(true)
+        axios.post('http://ec2-52-15-191-227.us-east-2.compute.amazonaws.com/superadmin/branch/getallcategories', {
+            UserID: 1
+        }).then(resp => {
+            let _categories = []
+            resp.data.data.forEach(element => {
+                const _category = new SelectOptions(element.CategoryID, element.CategoryName)
+                _categories.push(_category)
+            });
+            setCategories(_categories)
+            setIsLoading(false)
+        }).catch(err => {
+            setIsLoading(false)
+            console.log(err);
+        })
+    }, [])
 
     return (
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} >
@@ -83,7 +114,7 @@ function AddShop() {
                                     hasFeedback
                                     showValidateSuccess
                                 >
-                                    <Input name="Category" autoComplete="off" placeholder="Shop Name" />
+                                    <Select name="Category" options={categories} placeholder="Select Category" />
                                 </Form.Item>
                             </div>
                         </div>
@@ -167,23 +198,38 @@ function AddShop() {
                                 </Form.Item>
                             </div>
                         </div>
+                        <div style={{ display: 'flex' }}>
+                            <div className='ant-col-xs-12' style={{ paddingRight: '8px' }} >
+                                <div className="field-label">
+                                    Pincode
+                        </div>
+                                <Form.Item
+                                    name="Pincode"
+                                >
+                                    <Input name="Pincode" autoComplete="off" placeholder="Pincode" />
+                                </Form.Item>
+                            </div>
+                            <div className='ant-col-xs-12' style={{ paddingLeft: '8px' }}>
+                                <div className="field-label">
+                                    Country
+                        </div>
+                                <Form.Item
+                                    name="Country"
+                                >
+                                    <Input name="Country" autoComplete="off" placeholder="Country" />
+                                </Form.Item>
+                            </div>
+                        </div>
                         <div className='ant-col-xs-24'>
                             <div className="field-label">
-                                Location
+                                Choose Location
                         </div>
-                            <Form.Item
-                                name="Location"
-                                hasFeedback
-                                showValidateSuccess
-                            >
-                                <Input name="Location" autoComplete="off" placeholder="Location" />
-                            </Form.Item>
                         </div>
                         <div className='ant-col-xs-24'>
                             <LocationPicker
                                 containerElement={<div style={{ height: '100%' }} />}
                                 mapElement={<div style={{ height: '400px' }} />}
-                                defaultPosition={defaultPosition}
+                                defaultPosition={location}
                                 onChange={handleLocationChange}
                             />
                         </div>
@@ -263,6 +309,13 @@ function AddShop() {
             </Form>
         </Formik>
     )
+}
+
+class SelectOptions {
+    constructor(value, label) {
+        this.value = value
+        this.label = label
+    }
 }
 
 export default AddShop

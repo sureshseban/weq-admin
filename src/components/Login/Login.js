@@ -39,7 +39,8 @@ function Login(props) {
                     Name: resp.data.otp.Name,
                     PhoneNumber: values.username,
                     RoleID: resp.data.otp.RoleID,
-                    UserID: resp.data.otp.UserID
+                    UserID: resp.data.otp.UserID,
+                    // BrandName: resp.data.otp.BrandName
                 }
                 localStorage.setItem('user', JSON.stringify(user))
                 setShowOTPScreen(true)
@@ -53,12 +54,12 @@ function Login(props) {
     const onOTPSubmit = () => {
         setSpinningAll(true)
         const user = JSON.parse(localStorage.getItem('user'))
-        axios.post('http://localhost/superadmin/auth/verify', {
+        axios.post('http://ec2-52-15-191-227.us-east-2.compute.amazonaws.com/superadmin/auth/verify', {
             PhoneNumber: user.PhoneNumber,
             code: otp
         }).then(resp => {
             setSpinningAll(false)
-            props.history.push("/home")
+            props.history.push("/my-shops")
         }).catch(err => {
             setSpinningAll(false)
             console.log(err);
