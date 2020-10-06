@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import LocationPicker from 'react-location-picker'
 import axios from 'axios'
 import { Spin } from 'antd'
+import moment from 'moment'
 
 function ShopInfo(props) {
 
@@ -114,13 +115,13 @@ function ShopInfo(props) {
                     <div className='ant-form-item' style={{ display: 'flex' }}>
                         <div className='settings-label'>Working Start Time</div>
                         <div className='settings-values'>
-                            {shopDetails.BranchStartTime}
+                            {moment(shopDetails.BranchStartTime || 0, ["HH"]).format("hh A")}
                         </div>
                     </div>
                     <div className='ant-form-item' style={{ display: 'flex' }}>
                         <div className='settings-label'>Working End Time</div>
                         <div className='settings-values'>
-                            {shopDetails.BranchEndTime}
+                            {moment(shopDetails.BranchEndTime || 0, ["HH"]).format("hh A")}
                         </div>
                     </div>
                     <div className='ant-form-item' style={{ display: 'flex' }}>

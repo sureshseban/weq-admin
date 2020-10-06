@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react'
 import './TodaysBookings.css'
 import axios from 'axios'
 import { Spin } from 'antd'
+import moment from 'moment'
 
 function TodaysBookings() {
 
+    const dateFormat = 'YYYY-MM-DD'
     const [morningSlots, setMorningSlots] = useState([])
     const [afternoonSlots, setAfternoonSlots] = useState([])
     const [eveningSlots, setEveningSlots] = useState([])
@@ -24,8 +26,10 @@ function TodaysBookings() {
         axios.post('http://ec2-52-15-191-227.us-east-2.compute.amazonaws.com/superadmin/branch/getslotdetails', {
             BranchID: 1,
             UserID: 22,
-            StartDate: '2020-09-04',
-            EndDate: '2020-09-04'
+            // StartDate: '2020-09-04',
+            // EndDate: '2020-09-04'
+            StartDate: moment(new Date()).format(dateFormat),
+            EndDate: moment(new Date()).format(dateFormat)
         }).then(resp => {
             const _slots = groupBy(resp.data.data, 'DaySequence');
             setMorningSlots(_slots.Morning)
@@ -42,23 +46,25 @@ function TodaysBookings() {
         <Spin spinning={isLoading}>
             <div className='slots-section'>
                 {
-                    morningSlots.length ? <div className='slots-heading'>
+                    morningSlots && morningSlots.length ? <div className='slots-heading'>
                         <span className='booked-timing'>Morning</span>
                         <span className='booked-count'>Booked 20/35</span>
                     </div> : null
                 }
                 <div className='slots-grid'>
                     {
-                        morningSlots.map((item, _index) => {
+                        morningSlots && morningSlots.map((item, _index) => {
                             return (
                                 <div key={_index} className='grid-item'>
                                     <div>
-                                        <span className='sl-no'>Sl.01</span>
-                                        <span className='booking-id'>WQ123245</span>
+                                        <span className='sl-no'>WEQ</span>
+                                        <span className='booking-id'>{item.BookingUniqueID}</span>
                                     </div>
                                     <div className='display-flex'>
-                                        <div className='ppl-count'>2 People</div>
-                                        <div className='duration'>10:00-10:40</div>
+                                        <div className='ppl-count'>{item.BookedCount} People</div>
+                                        <div className='duration'>
+                                            {moment(item.SlotStartTime || 0, ["HH"]).format("hh A")} - {moment(item.SlotEndTime || 0, ["HH"]).format("hh A")}
+                                        </div>
                                     </div>
                                 </div>
                             )
@@ -66,23 +72,25 @@ function TodaysBookings() {
                     }
                 </div>
                 {
-                    afternoonSlots.length ? <div className='slots-heading'>
+                    afternoonSlots && afternoonSlots.length ? <div className='slots-heading'>
                         <span className='booked-timing'>Afternoon</span>
                         <span className='booked-count'>Booked 20/35</span>
                     </div> : null
                 }
                 <div className='slots-grid'>
                     {
-                        afternoonSlots.map((item, _index) => {
+                        afternoonSlots && afternoonSlots.map((item, _index) => {
                             return (
                                 <div key={_index} className='grid-item'>
                                     <div>
-                                        <span className='sl-no'>Sl.01</span>
-                                        <span className='booking-id'>WQ123245</span>
+                                        <span className='sl-no'>WEQ</span>
+                                        <span className='booking-id'>{item.BookingUniqueID}</span>
                                     </div>
                                     <div className='display-flex'>
-                                        <div className='ppl-count'>2 People</div>
-                                        <div className='duration'>10:00-10:40</div>
+                                        <div className='ppl-count'>{item.BookedCount} People</div>
+                                        <div className='duration'>
+                                            {moment(item.SlotStartTime || 0, ["HH"]).format("hh A")} - {moment(item.SlotEndTime || 0, ["HH"]).format("hh A")}
+                                        </div>
                                     </div>
                                 </div>
                             )
@@ -90,23 +98,25 @@ function TodaysBookings() {
                     }
                 </div>
                 {
-                    eveningSlots.length ? <div className='slots-heading'>
+                    eveningSlots && eveningSlots.length ? <div className='slots-heading'>
                         <span className='booked-timing'>Evening</span>
                         <span className='booked-count'>Booked 20/35</span>
                     </div> : null
                 }
                 <div className='slots-grid'>
                     {
-                        eveningSlots.map((item, _index) => {
+                        eveningSlots && eveningSlots.map((item, _index) => {
                             return (
                                 <div key={_index} className='grid-item'>
                                     <div>
-                                        <span className='sl-no'>Sl.01</span>
-                                        <span className='booking-id'>WQ123245</span>
+                                        <span className='sl-no'>WEQ</span>
+                                        <span className='booking-id'>{item.BookingUniqueID}</span>
                                     </div>
                                     <div className='display-flex'>
-                                        <div className='ppl-count'>2 People</div>
-                                        <div className='duration'>10:00-10:40</div>
+                                        <div className='ppl-count'>{item.BookedCount} People</div>
+                                        <div className='duration'>
+                                            {moment(item.SlotStartTime || 0, ["HH"]).format("hh A")} - {moment(item.SlotEndTime || 0, ["HH"]).format("hh A")}
+                                        </div>
                                     </div>
                                 </div>
                             )

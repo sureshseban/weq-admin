@@ -45,7 +45,8 @@ function AddShop() {
         MaximumBookingCount: Yup.number().required('Maximum booking count required!'),
         StartTime: Yup.string().nullable().required('Start Time required!'),
         EndTime: Yup.string().nullable().required('End Time required!'),
-        Email: Yup.string().email('Invalid Email!')
+        Email: Yup.string().email('Invalid Email!'),
+        SecondaryContact: Yup.string().required('Mobile Number required!')
     })
 
     const onSubmit = values => {
@@ -157,6 +158,8 @@ function AddShop() {
                         </div>
                                     <Form.Item
                                         name="SecondaryContact"
+                                        hasFeedback
+                                        showValidateSuccess
                                     >
                                         <Input name="SecondaryContact" autoComplete="off" placeholder="Mobile Number" />
                                     </Form.Item>

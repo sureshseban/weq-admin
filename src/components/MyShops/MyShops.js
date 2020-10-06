@@ -10,6 +10,11 @@ function MyShops() {
 
     const [shops, setShops] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+    const [filter, setFilter] = useState('')
+
+    let filteredShops = shops.filter(element => {
+        return element.BranchName.toLowerCase().includes(filter.toLowerCase());
+    });
 
     useEffect(() => {
         setIsLoading(true)
@@ -25,8 +30,8 @@ function MyShops() {
         })
     }, [])
 
-    const onSearch = (text) => {
-        console.log(text)
+    const onSearch = (filter) => {
+        setFilter(filter)
     }
 
     return (
@@ -48,7 +53,7 @@ function MyShops() {
                 <div className='shops-section'>
                     <div className='shops-grid'>
                         {
-                            shops.map((item, index) => {
+                            filteredShops.map((item, index) => {
                                 return (
                                     <div key={index} className='shop-grid-item'>
                                         <div className='img'>
