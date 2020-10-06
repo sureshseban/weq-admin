@@ -39,7 +39,9 @@ function Login(props) {
                     Name: resp.data.otp.Name,
                     PhoneNumber: values.username,
                     RoleID: resp.data.otp.RoleID,
-                    UserID: resp.data.otp.UserID
+                    UserID: resp.data.otp.UserID,
+                    ClientID: resp.data.otp.ClientID,
+                    ClientName: resp.data.otp.ClientName
                 }
                 localStorage.setItem('user', JSON.stringify(user))
                 setShowOTPScreen(true)

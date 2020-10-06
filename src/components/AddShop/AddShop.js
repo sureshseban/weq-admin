@@ -7,8 +7,9 @@ import LocationPicker from 'react-location-picker'
 import axios from 'axios'
 import { Spin, Alert } from 'antd'
 
-function AddShop() {
+function AddShop(props) {
 
+    const user = JSON.parse(localStorage.user)
     const initialValues = {
         ShopName: '',
         Category: '',
@@ -55,13 +56,13 @@ function AddShop() {
         const _StartTime = _StartDateTime.toLocaleTimeString('en-GB')
         const _EndDateTime = new Date(values.EndTime)
         const _EndTime = _EndDateTime.toLocaleTimeString('en-GB')
-
         setIsLoading(true)
+
         axios.post('http://ec2-52-15-191-227.us-east-2.compute.amazonaws.com/superadmin/branch/addbranch', {
-            UserID: 1,
+            UserID: user.UserID,
             BranchName: values.ShopName,
             CategoryID: values.Category,
-            ClientID: 1,
+            ClientID: user.ClientID,
             BranchPhoneNumber: values.SecondaryContact,
             BranchEmailID: values.Email,
             IsBranchSupervisor: 0,
@@ -82,8 +83,8 @@ function AddShop() {
             WorkingDayList: '0,1,2,3,4,5,6',
             BranchImage: null
         }).then(resp => {
-            setViewSlotDetailsButton(true)
             setIsLoading(false)
+            props.history.push("/my-shops")
         }).catch(err => {
             setIsLoading(false)
             console.log(err);
@@ -92,7 +93,6 @@ function AddShop() {
 
     const [categories, setCategories] = useState([])
     const [isLoading, setIsLoading] = useState(false)
-    const [viewSlotDetailsButton, setViewSlotDetailsButton] = useState(false)
     const [location, setLocation] = useState({
         lat: 12.9716,
         lng: 77.5946
@@ -101,7 +101,7 @@ function AddShop() {
     useEffect(() => {
         setIsLoading(true)
         axios.post('http://ec2-52-15-191-227.us-east-2.compute.amazonaws.com/superadmin/branch/getallcategories', {
-            UserID: 1
+            UserID: user.UserID
         }).then(resp => {
             let _categories = []
             resp.data.data.forEach(element => {
@@ -346,13 +346,8 @@ function AddShop() {
                                 </div>
                             </div>
                             <div className='ant-form-item'>
-                                {
-                                    !viewSlotDetailsButton ? <button className="login-btn">Submit</button> : <button className="login-btn">View Slot Details</button>
-                                }
+                                <button className="login-btn">Submit</button>
                             </div>
-                            {
-                                viewSlotDetailsButton ? <Alert message="Shop added successfully." type="success" showIcon closable /> : null
-                            }
                         </div>
                     </div>
                 </Spin>

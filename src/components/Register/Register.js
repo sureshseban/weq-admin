@@ -11,10 +11,10 @@ import axios from 'axios'
 function Register(props) {
 
     const initialValues = {
-        brandName: '',
-        firstName: '',
-        lastName: '',
-        userName: '',
+        ClientName: '',
+        FirstName: '',
+        LastName: '',
+        PhoneNumber: '',
         otp: ''
     }
 
@@ -26,10 +26,10 @@ function Register(props) {
 
 
     const validationSchema = Yup.object({
-        userName: Yup.string().required('Mobile Number required!'),
-        brandName: Yup.string().required('Brand Name required!'),
-        firstName: Yup.string().required('First Name required!'),
-        lastName: Yup.string().required('Last Name required!')
+        PhoneNumber: Yup.string().required('Mobile Number required!'),
+        ClientName: Yup.string().required('Brand Name required!'),
+        FirstName: Yup.string().required('First Name required!'),
+        LastName: Yup.string().required('Last Name required!')
     })
 
     const onSubmit = values => {
@@ -47,9 +47,11 @@ function Register(props) {
             } else {
                 const user = {
                     Name: resp.data.otp.Name,
-                    PhoneNumber: values.username,
+                    PhoneNumber: values.PhoneNumber,
                     RoleID: resp.data.otp.RoleID,
-                    UserID: resp.data.otp.UserID
+                    UserID: resp.data.otp.UserID,
+                    ClientID: resp.data.otp.ClientID,
+                    ClientName: resp.data.otp.ClientName
                 }
                 localStorage.setItem('user', JSON.stringify(user))
                 setShowOTPScreen(true)
@@ -68,7 +70,7 @@ function Register(props) {
             code: otp
         }).then(resp => {
             setSpinningAll(false)
-            props.history.push("/home")
+            props.history.push("/add-shop")
         }).catch(err => {
             setSpinningAll(false)
             console.log(err)
@@ -77,6 +79,10 @@ function Register(props) {
 
     const handleChange = otp => {
         setOTP(otp)
+    }
+
+    const changePhoneNumber = () => {
+        setShowAlert(false)
     }
 
     const bgStyle = {
@@ -102,41 +108,41 @@ function Register(props) {
                                     Brand Name
                         </div>
                                 <Form.Item
-                                    name="brandName"
+                                    name="ClientName"
                                     hasFeedback
                                     showValidateSuccess
                                 >
-                                    <Input name="brandName" autoComplete="off" placeholder="Brand Name" />
+                                    <Input name="ClientName" autoComplete="off" placeholder="Brand Name" />
                                 </Form.Item>
                                 <div className="field-label">
                                     First Name
                         </div>
                                 <Form.Item
-                                    name="firstName"
+                                    name="FirstName"
                                     hasFeedback
                                     showValidateSuccess
                                 >
-                                    <Input name="firstName" autoComplete="off" placeholder="First Name" />
+                                    <Input name="FirstName" autoComplete="off" placeholder="First Name" />
                                 </Form.Item>
                                 <div className="field-label">
                                     Last Name
                         </div>
                                 <Form.Item
-                                    name="lastName"
+                                    name="LastName"
                                     hasFeedback
                                     showValidateSuccess
                                 >
-                                    <Input name="lastName" autoComplete="off" placeholder="Last Name" />
+                                    <Input name="LastName" autoComplete="off" placeholder="Last Name" />
                                 </Form.Item>
                                 <div className="field-label">
                                     Mobile Number
                         </div>
                                 <Form.Item
-                                    name="userName"
+                                    name="PhoneNumber"
                                     hasFeedback
                                     showValidateSuccess
                                 >
-                                    <Input name="userName" autoComplete="off" placeholder="Mobile Number" />
+                                    <Input name="PhoneNumber" autoComplete="off" onChange={changePhoneNumber} placeholder="Mobile Number" />
                                 </Form.Item>
                                 {
                                     !showOTPScreen ? <div className='ant-row ant-form-item'>
@@ -167,7 +173,7 @@ function Register(props) {
                         </Formik> : null
                     }{
                         showAlert ? <div className="ant-form-item">
-                            <Alert message="mobile number already exists" type="error" showIcon closable />
+                            <Alert message="This mobile number/Brand Name already in use. Please try with a different one." type="error" showIcon closable />
                         </div> : null
                     }
                     <div className="hyperlink-wrapper">

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Input } from 'antd'
+import { Input, Result } from 'antd'
 import './MyShops.css'
 import axios from 'axios'
 import { Spin } from 'antd'
 const logo = require('../../assets/images/Shopping Cart-ico.svg');
 const pointer = require('../../assets/images/Pointer.svg');
 
-function MyShops() {
+function MyShops(props) {
 
+    const user = JSON.parse(localStorage.user)
     const [shops, setShops] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [filter, setFilter] = useState('')
@@ -18,9 +19,10 @@ function MyShops() {
 
     useEffect(() => {
         setIsLoading(true)
+        const user = JSON.parse(localStorage.user)
         axios.post('http://ec2-52-15-191-227.us-east-2.compute.amazonaws.com/superadmin/branch/getallbranches', {
-            UserID: 22,
-            ClientID: 1
+            UserID: user.UserID,
+            ClientID: user.ClientID
         }).then(resp => {
             setShops(resp.data.data)
             setIsLoading(false)
@@ -34,6 +36,10 @@ function MyShops() {
         setFilter(filter)
     }
 
+    const handleClick = () => {
+        props.history.push("/add-shop")
+    }
+
     return (
         <React.Fragment>
             <Spin spinning={isLoading}>
@@ -42,7 +48,7 @@ function MyShops() {
                     <div className='display-flex'>
                         <div className='brand-name'>
                             {
-                                shops.length ? shops[0].ClientName : null
+                                user.ClientName
                             }
                         </div>
                         <div>
@@ -51,24 +57,32 @@ function MyShops() {
                     </div>
                 </div>
                 <div className='shops-section'>
-                    <div className='shops-grid'>
-                        {
-                            filteredShops.map((item, index) => {
-                                return (
-                                    <div key={index} className='shop-grid-item'>
-                                        <div className='img'>
-                                            <img alt="shop" src={logo} />
-                                        </div>
-                                        <div className='info'>
-                                            <div className='shop-names'>{item.BranchName}</div>
-                                            <div>{item.CategoryName}</div>
-                                            <div className='shop-address'><img alt='' src={pointer} />  {item.BuildingNumber} {item.StreetName} {item.City}  {item.State}</div>
-                                        </div>
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
+                    {
+                        filteredShops && filteredShops.length ?
+                            <div className='shops-grid'>
+                                {
+                                    filteredShops.map((item, index) => {
+                                        return (
+                                            <div key={index} className='shop-grid-item'>
+                                                <div className='img'>
+                                                    <img alt="shop" src={logo} />
+                                                </div>
+                                                <div className='info'>
+                                                    <div className='shop-names'>{item.BranchName}</div>
+                                                    <div>{item.CategoryName}</div>
+                                                    <div className='shop-address'><img alt='' src={pointer} />  {item.BuildingNumber} {item.StreetName} {item.City}  {item.State}</div>
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div> : <Result
+                                title="Your brand is empty. Please create a shop"
+                                extra={
+                                    <button onClick={handleClick} className="weq-button">Add Shop</button>
+                                }
+                            />
+                    }
                 </div>
             </Spin>
         </React.Fragment>
