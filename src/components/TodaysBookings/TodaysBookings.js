@@ -31,7 +31,7 @@ function TodaysBookings(props) {
             StartDate: moment(new Date()).format(dateFormat),
             EndDate: moment(new Date()).format(dateFormat)
         }).then(resp => {
-            const _slots = groupBy(resp.data.data, 'DaySequence');
+            const _slots = groupBy(resp.data.config, 'DaySequence')
             setMorningSlots(_slots.Morning)
             setAfternoonSlots(_slots.Afternoon)
             setEveningSlots(_slots.Evening)
@@ -58,12 +58,12 @@ function TodaysBookings(props) {
                                 <div key={_index} className='grid-item'>
                                     <div>
                                         <span className='sl-no'>WEQ</span>
-                                        <span className='booking-id'>{item.BookingUniqueID}</span>
+                                        <span className='booking-id'>{item.BookingUniqueID || (_index + 1)}</span>
                                     </div>
                                     <div className='display-flex'>
                                         <div className='ppl-count'>{item.BookedCount} People</div>
                                         <div className='duration'>
-                                            {moment(item.SlotStartTime || 0, ["HH"]).format("hh A")} - {moment(item.SlotEndTime || 0, ["HH"]).format("hh A")}
+                                            {moment(item.SlotStartTime || 0, ["h:mm A"]).format("hh:mm A")} - {moment(item.SlotEndTime || 0, ["h:mm A"]).format("hh:mm A")}
                                         </div>
                                     </div>
                                 </div>
@@ -83,13 +83,13 @@ function TodaysBookings(props) {
                             return (
                                 <div key={_index} className='grid-item'>
                                     <div>
-                                        <span className='sl-no'>WEQ</span>
-                                        <span className='booking-id'>{item.BookingUniqueID}</span>
+                                        <span className='sl-no'>WEQ </span>
+                                        <span className='booking-id'>{item.BookingUniqueID || (_index + 1)}</span>
                                     </div>
                                     <div className='display-flex'>
                                         <div className='ppl-count'>{item.BookedCount} People</div>
                                         <div className='duration'>
-                                            {moment(item.SlotStartTime || 0, ["HH"]).format("hh A")} - {moment(item.SlotEndTime || 0, ["HH"]).format("hh A")}
+                                            {moment(item.SlotStartTime || 0, ["h:mm A"]).format("hh:mm A")} - {moment(item.SlotEndTime || 0, ["h:mm A"]).format("hh:mm A")}
                                         </div>
                                     </div>
                                 </div>
@@ -110,12 +110,12 @@ function TodaysBookings(props) {
                                 <div key={_index} className='grid-item'>
                                     <div>
                                         <span className='sl-no'>WEQ</span>
-                                        <span className='booking-id'>{item.BookingUniqueID}</span>
+                                        <span className='booking-id'>{item.BookingUniqueID || (_index + 1)}</span>
                                     </div>
                                     <div className='display-flex'>
                                         <div className='ppl-count'>{item.BookedCount} People</div>
                                         <div className='duration'>
-                                            {moment(item.SlotStartTime || 0, ["HH"]).format("hh A")} - {moment(item.SlotEndTime || 0, ["HH"]).format("hh A")}
+                                            {moment(item.SlotStartTime || 0, ["h:mm A"]).format("hh:mm A")} - {moment(item.SlotEndTime || 0, ["h:mm A"]).format("hh:mm A")}
                                         </div>
                                     </div>
                                 </div>

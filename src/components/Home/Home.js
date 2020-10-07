@@ -10,9 +10,12 @@ function Home(props) {
         <div style={{ backgroundColor: '#ECF2F5', minHeight: 'calc(100vh - 64px)' }}>
             <Header></Header>
             <Switch>
-                <Route exact path={`${props.match.path}`} component={TodaysBookings} ></Route>
+                <Route exact path='/home' component={TodaysBookings} ></Route>
+                <Route exact path='/home/pastbookings' component={PastBookings} ></Route>
+                <Route exact path='/home/shopinfo' component={ShopInfo} ></Route>
+                {/* <Route exact path={`${props.match.path}`} component={TodaysBookings} ></Route>
                 <Route exact path={`${props.match.path}/pastbookings`} component={PastBookings} ></Route>
-                <Route exact path={`${props.match.path}/shopinfo`} component={ShopInfo} ></Route>
+                <Route exact path={`${props.match.path}/shopinfo`} component={ShopInfo} ></Route> */}
             </Switch>
         </div>
     )
