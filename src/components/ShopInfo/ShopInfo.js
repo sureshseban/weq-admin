@@ -3,9 +3,11 @@ import LocationPicker from 'react-location-picker'
 import axios from 'axios'
 import { Spin } from 'antd'
 import moment from 'moment'
+import _services from '../../utils/services'
 
 function ShopInfo(props) {
 
+    const user = JSON.parse(localStorage.user)
     const [shopDetails, setShopDetails] = useState({})
     const [isLoading, setIsLoading] = useState(false)
     const [location, setLocation] = useState({
@@ -16,8 +18,8 @@ function ShopInfo(props) {
     useEffect(() => {
         setIsLoading(true)
         axios.post('http://ec2-52-15-191-227.us-east-2.compute.amazonaws.com/superadmin/branch/getbranch_id', {
-            BranchID: 29,
-            UserID: 22
+            BranchID: _services.selectedShop.BranchID,
+            UserID: user.UserID,
         }).then(resp => {
             setShopDetails(resp.data.data[0])
             setLocation({

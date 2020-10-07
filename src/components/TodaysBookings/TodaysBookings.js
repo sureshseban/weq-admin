@@ -26,7 +26,7 @@ function TodaysBookings(props) {
     useEffect(() => {
         setIsLoading(true)
         axios.post('http://ec2-52-15-191-227.us-east-2.compute.amazonaws.com/superadmin/branch/getslotdetails', {
-            BranchID: 1, // _services.selectedShop.BranchID,
+            BranchID: _services.selectedShop.BranchID,
             UserID: user.UserID,
             StartDate: moment(new Date()).format(dateFormat),
             EndDate: moment(new Date()).format(dateFormat)

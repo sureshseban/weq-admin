@@ -4,10 +4,12 @@ import { DatePicker, Input } from 'antd'
 import axios from 'axios'
 import { Spin } from 'antd'
 import moment from 'moment'
+import _services from '../../utils/services'
 const { RangePicker } = DatePicker;
 
 function PastBookings(props) {
 
+    const user = JSON.parse(localStorage.user)
     const dateFormat = 'DD/MM/YYYY'
     var currentDate = new Date()
     const lastFiveDate = new Date(currentDate.setDate(currentDate.getDate() - 31))
@@ -29,8 +31,8 @@ function PastBookings(props) {
             setEndDate(dates[1])
             setIsLoading(true)
             axios.post('http://ec2-52-15-191-227.us-east-2.compute.amazonaws.com/superadmin/branch/getslotdetails', {
-                BranchID: 1,
-                UserID: 22,
+                BranchID: _services.selectedShop.BranchID,
+                UserID: user.UserID,
                 StartDate: moment(new Date(dates[0])).format('YYYY-MM-DD'),
                 EndDate: moment(new Date(dates[1])).format('YYYY-MM-DD')
             }).then(resp => {
@@ -60,8 +62,8 @@ function PastBookings(props) {
     useEffect(() => {
         setIsLoading(true)
         axios.post('http://ec2-52-15-191-227.us-east-2.compute.amazonaws.com/superadmin/branch/getslotdetails', {
-            BranchID: 1,
-            UserID: 22,
+            BranchID: _services.selectedShop.BranchID,
+            UserID: user.UserID,
             StartDate: moment(lastFiveDate).format('YYYY-MM-DD'),
             EndDate: moment(new Date()).format('YYYY-MM-DD')
         }).then(resp => {
