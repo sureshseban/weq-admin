@@ -9,7 +9,7 @@ function Header(props) {
     return (
         <header className="home-header">
             <div className="breadcrum">
-                Home / {user.ClientName}
+                Home / <NavLink exact to='/my-shops'>{user.ClientName}</NavLink>
             </div>
             <div className="shop-name">
                 {_services.selectedShop.BranchName}
