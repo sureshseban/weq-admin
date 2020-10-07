@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './PastBookings.css'
 import { DatePicker, Input } from 'antd'
 import axios from 'axios'
-import { Spin } from 'antd'
+import { Spin, Result } from 'antd'
 import moment from 'moment'
 import _services from '../../utils/services'
 const { RangePicker } = DatePicker;
@@ -17,13 +17,7 @@ function PastBookings(props) {
     const [endDate, setEndDate] = useState(moment(new Date(), dateFormat))
     const [slots, setSlots] = useState([])
     const [isLoading, setIsLoading] = useState(false)
-    const [filter, setFilter] = useState('')
-
-    let filteredSlots = slots.filter(element => {
-        return element.data.filter(_element => {
-            return _element.UserName.toLowerCase().includes(filter.toLowerCase());
-        })
-    });
+    const [emptyTitle, setEmptyTitle] = useState('Loading...')
 
     function onChange(dates) {
         if (dates) {
@@ -50,12 +44,14 @@ function PastBookings(props) {
                     _newSlots.push(_slot)
                 })
                 setSlots(_newSlots)
+                if (!_newSlots.length) {
+                    setEmptyTitle('No slots are booked between ' + moment(new Date(dates[0])).format(dateFormat) + ' and ' + moment(new Date(dates[1])).format(dateFormat))
+                }
                 setIsLoading(false)
             }).catch(err => {
                 setIsLoading(false)
                 console.log(err);
             })
-
         }
     }
 
@@ -81,6 +77,9 @@ function PastBookings(props) {
                 _newSlots.push(_slot)
             })
             setSlots(_newSlots)
+            if (!_newSlots.length) {
+                setEmptyTitle('No slots are booked between ' + moment(lastFiveDate).format(dateFormat) + ' and ' + moment(new Date()).format(dateFormat))
+            }
             setIsLoading(false)
         }).catch(err => {
             setIsLoading(false)
@@ -88,9 +87,7 @@ function PastBookings(props) {
         })
     }, [])
 
-    const onSearch = (filter) => {
-        setFilter(filter)
-    }
+    const onSearch = (filter) => { }
 
     return (
         <Spin spinning={isLoading}>
@@ -103,12 +100,12 @@ function PastBookings(props) {
                             onChange={onChange}
                         />
                     </div>
-                    <div>
+                    <div style={{ display: 'none' }}>
                         <Input placeholder="Enter visitor name" allowClear onChange={(e) => onSearch(e.target.value)} />
                     </div>
                 </div>
                 {
-                    filteredSlots && filteredSlots.length ? filteredSlots.map((item, index) => {
+                    slots && slots.length ? slots.map((item, index) => {
                         return (
                             <React.Fragment key={index}>
                                 <div className='date-header'>{item.date}</div>
@@ -133,7 +130,12 @@ function PastBookings(props) {
                                 </div>
                             </React.Fragment>
                         )
-                    }) : null
+                    }) : <Result
+                            title={emptyTitle}
+                        // extra={
+                        //     <button onClick={handleClick} className="weq-button">Add Shop</button>
+                        // }
+                        />
                 }
             </div>
         </Spin>
