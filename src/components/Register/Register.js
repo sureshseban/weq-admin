@@ -34,7 +34,7 @@ function Register(props) {
 
     const onSubmit = values => {
         setSpinning(true)
-        axios.post('http://localhost/superadmin/auth/register', {
+        axios.post('http://ec2-52-15-191-227.us-east-2.compute.amazonaws.com/superadmin/auth/register', {
             ClientName: values.ClientName,
             FirstName: values.FirstName,
             LastName: values.LastName,
