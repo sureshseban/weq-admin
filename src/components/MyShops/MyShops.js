@@ -3,6 +3,7 @@ import { Input, Result } from 'antd'
 import './MyShops.css'
 import axios from 'axios'
 import { Spin } from 'antd'
+import _services from '../../utils/services'
 const logo = require('../../assets/images/Shopping Cart-ico.svg');
 const pointer = require('../../assets/images/Pointer.svg');
 
@@ -40,6 +41,11 @@ function MyShops(props) {
         props.history.push("/add-shop")
     }
 
+    const handleShopClick = (shop) => {
+        _services.selectedShop = shop
+        props.history.push("/home")
+    }
+
     return (
         <React.Fragment>
             <Spin spinning={isLoading}>
@@ -63,7 +69,7 @@ function MyShops(props) {
                                 {
                                     filteredShops.map((item, index) => {
                                         return (
-                                            <div key={index} className='shop-grid-item'>
+                                            <div onClick={() => handleShopClick(item)} key={index} className='shop-grid-item'>
                                                 <div className='img'>
                                                     <img alt="shop" src={logo} />
                                                 </div>

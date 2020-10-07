@@ -3,9 +3,11 @@ import './TodaysBookings.css'
 import axios from 'axios'
 import { Spin } from 'antd'
 import moment from 'moment'
+import _services from '../../utils/services'
 
-function TodaysBookings() {
+function TodaysBookings(props) {
 
+    const user = JSON.parse(localStorage.user)
     const dateFormat = 'YYYY-MM-DD'
     const [morningSlots, setMorningSlots] = useState([])
     const [afternoonSlots, setAfternoonSlots] = useState([])
@@ -24,10 +26,8 @@ function TodaysBookings() {
     useEffect(() => {
         setIsLoading(true)
         axios.post('http://ec2-52-15-191-227.us-east-2.compute.amazonaws.com/superadmin/branch/getslotdetails', {
-            BranchID: 1,
-            UserID: 22,
-            // StartDate: '2020-09-04',
-            // EndDate: '2020-09-04'
+            BranchID: 1, // _services.selectedShop.BranchID,
+            UserID: user.UserID,
             StartDate: moment(new Date()).format(dateFormat),
             EndDate: moment(new Date()).format(dateFormat)
         }).then(resp => {
