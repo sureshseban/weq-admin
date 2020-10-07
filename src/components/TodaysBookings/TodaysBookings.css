@@ -25,6 +25,15 @@
     opacity: 1;
     padding: 12px;
 }
+.grid-item-booked {
+    height: 64px;
+    border-radius: 6px;
+    opacity: 1;
+    padding: 12px;
+    background-color: #e6f7ff;
+    border: 1px solid #91d5ff;
+    cursor: pointer;
+}
 .booked-timing {
     font: normal normal normal 12px/14px Roboto;
     color: #7D909A;

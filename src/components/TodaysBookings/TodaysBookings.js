@@ -55,9 +55,9 @@ function TodaysBookings(props) {
                     {
                         morningSlots && morningSlots.map((item, _index) => {
                             return (
-                                <div key={_index} className='grid-item'>
+                                <div key={_index} className={item.BookedCount ? 'grid-item-booked':'grid-item'}>
                                     <div>
-                                        <span className='sl-no'>WEQ</span>
+                                        <span className='sl-no'>WEQ </span>
                                         <span className='booking-id'>{item.BookingUniqueID || (_index + 1)}</span>
                                     </div>
                                     <div className='display-flex'>
@@ -81,7 +81,7 @@ function TodaysBookings(props) {
                     {
                         afternoonSlots && afternoonSlots.map((item, _index) => {
                             return (
-                                <div key={_index} className='grid-item'>
+                                <div key={_index} className={item.BookedCount ? 'grid-item-booked':'grid-item'}>
                                     <div>
                                         <span className='sl-no'>WEQ </span>
                                         <span className='booking-id'>{item.BookingUniqueID || (_index + 1)}</span>
@@ -107,9 +107,9 @@ function TodaysBookings(props) {
                     {
                         eveningSlots && eveningSlots.map((item, _index) => {
                             return (
-                                <div key={_index} className='grid-item'>
+                                <div key={_index} className={item.BookedCount ? 'grid-item-booked':'grid-item'}>
                                     <div>
-                                        <span className='sl-no'>WEQ</span>
+                                        <span className='sl-no'>WEQ </span>
                                         <span className='booking-id'>{item.BookingUniqueID || (_index + 1)}</span>
                                     </div>
                                     <div className='display-flex'>

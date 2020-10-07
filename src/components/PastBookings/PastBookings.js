@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './PastBookings.css'
 import { DatePicker, Input } from 'antd'
 import axios from 'axios'
-import { Spin, Result } from 'antd'
+import { Spin, Result, Popover } from 'antd'
 import moment from 'moment'
 import _services from '../../utils/services'
 const { RangePicker } = DatePicker;
@@ -12,7 +12,7 @@ function PastBookings(props) {
     const user = JSON.parse(localStorage.user)
     const dateFormat = 'DD/MM/YYYY'
     var currentDate = new Date()
-    const lastFiveDate = new Date(currentDate.setDate(currentDate.getDate() - 31))
+    const lastFiveDate = new Date(currentDate.setDate(currentDate.getDate() - 7))
     const [startDate, setStartDate] = useState(moment(lastFiveDate, dateFormat))
     const [endDate, setEndDate] = useState(moment(new Date(), dateFormat))
     const [slots, setSlots] = useState([])
@@ -89,6 +89,14 @@ function PastBookings(props) {
 
     const onSearch = (filter) => { }
 
+    const content = (item) => (
+        <div>
+            <p>Name: {item.UserName}</p>
+            <p>Mobile: {item.PhoneNumber}</p>
+            <p>Email: {item.UserEmail}</p>
+        </div>
+    )
+
     return (
         <Spin spinning={isLoading}>
             <div className='visitors-section'>
@@ -113,17 +121,19 @@ function PastBookings(props) {
                                     {
                                         item.data.map((_item, _index) => {
                                             return (
-                                                <div key={_index} className='grid-item'>
-                                                    <div>
-                                                        <span className='sl-no'>{_item.UserName}</span>
-                                                    </div>
-                                                    <div className='display-flex'>
-                                                        <div className='ppl-count'>with {_item.BookedCount} visitors</div>
-                                                        <div className='duration'>
-                                                            {moment(_item.SlotStartTime || 0, ["HH"]).format("hh A")} - {moment(_item.SlotEndTime || 0, ["HH"]).format("hh A")}
+                                                <Popover key={_index} content={() => content(_item)} title="Guest details">
+                                                    <div key={_index} className='grid-item'>
+                                                        <div>
+                                                            <span className='sl-no'>{_item.UserName}</span>
+                                                        </div>
+                                                        <div className='display-flex'>
+                                                            <div className='ppl-count'>with {_item.BookedCount} visitors</div>
+                                                            <div className='duration'>
+                                                                {moment(_item.SlotStartTime || 0, ["HH"]).format("hh A")} - {moment(_item.SlotEndTime || 0, ["HH"]).format("hh A")}
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </Popover>
                                             )
                                         })
                                     }
@@ -132,9 +142,6 @@ function PastBookings(props) {
                         )
                     }) : <Result
                             title={emptyTitle}
-                        // extra={
-                        //     <button onClick={handleClick} className="weq-button">Add Shop</button>
-                        // }
                         />
                 }
             </div>

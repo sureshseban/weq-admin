@@ -24,6 +24,7 @@
     border-radius: 6px;
     opacity: 1;
     padding: 12px;
+    cursor: pointer;
 }
 .booked-timing {
     font: normal normal normal 12px/14px Roboto;
