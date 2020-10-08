@@ -65,7 +65,7 @@ function AddShop(props) {
             ClientID: user.ClientID,
             BranchPhoneNumber: values.SecondaryContact,
             BranchEmailID: values.Email,
-            IsBranchSupervisor: 0,
+            IsBranchSupervisor: false,
             AdminPhoneNumber: null,
             BuildingNumber: values.Building,
             StreetName: values.StreetName,
