@@ -66,7 +66,7 @@ function AddShop(props) {
             BranchPhoneNumber: values.SecondaryContact,
             BranchEmailID: values.Email,
             IsBranchSupervisor: 0,
-            AdminPhoneNumber: '',
+            AdminPhoneNumber: null,
             BuildingNumber: values.Building,
             StreetName: values.StreetName,
             City: values.City,
