@@ -75,17 +75,13 @@ function Login(props) {
         setShowAlert(false)
     }
 
-    const bgStyle = {
-        backgroundImage: `url(${process.env.PUBLIC_URL}/login-bg.svg)`
-    }
-
     const logoStyle = {
         backgroundImage: `url(${process.env.PUBLIC_URL}/logo.svg)`
     }
 
     return (
         <div className="login-wrapper">
-            <div className="left-panel" style={bgStyle}>
+            <div className="left-panel">
                 <span className="login-logo" style={logoStyle}></span>
             </div>
             <div className="right-panel">

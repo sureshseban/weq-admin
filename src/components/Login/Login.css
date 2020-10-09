@@ -6,7 +6,10 @@
 }
 
 .left-panel {
-    flex: 66%;
+    flex: 66% 1;
+    background-image: url('../../assets/images/bgImage.svg');
+    background-repeat: repeat-x;
+    background-size: cover;
 }
 
 .login-logo {

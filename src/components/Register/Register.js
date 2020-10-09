@@ -85,17 +85,13 @@ function Register(props) {
         setShowAlert(false)
     }
 
-    const bgStyle = {
-        backgroundImage: `url(${process.env.PUBLIC_URL}/login-bg.svg)`
-    }
-
     const logoStyle = {
         backgroundImage: `url(${process.env.PUBLIC_URL}/logo.svg)`
     }
 
     return (
         <div className="login-wrapper">
-            <div className="left-panel" style={bgStyle}>
+            <div className="left-panel">
                 <span className="login-logo" style={logoStyle}></span>
             </div>
             <div className="right-panel">
@@ -103,7 +99,7 @@ function Register(props) {
                     <Spin spinning={spinning} >
                         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} >
                             <Form>
-                                <div className="right-panel-title">Create your WeQ Account</div>
+                                <div className="right-panel-title">Create your WeQ account here</div>
                                 <div className="field-label">
                                     Brand Name
                         </div>

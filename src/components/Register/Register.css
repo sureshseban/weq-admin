@@ -5,10 +5,6 @@
     display: flex;
 }
 
-.left-panel {
-    flex: 66%;
-}
-
 .login-logo {
     position: fixed;
     left: 100px;
