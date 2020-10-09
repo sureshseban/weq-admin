@@ -10,11 +10,10 @@ const { RangePicker } = DatePicker;
 function PastBookings(props) {
 
     const user = JSON.parse(localStorage.user)
-    const dateFormat = 'DD/MM/YYYY'
     var currentDate = new Date()
     const lastFiveDate = new Date(currentDate.setDate(currentDate.getDate() - 7))
-    const [startDate, setStartDate] = useState(moment(lastFiveDate, dateFormat))
-    const [endDate, setEndDate] = useState(moment(new Date(), dateFormat))
+    const [startDate, setStartDate] = useState(moment(lastFiveDate, _services.dateFormat_UI))
+    const [endDate, setEndDate] = useState(moment(new Date(), _services.dateFormat_UI))
     const [slots, setSlots] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [emptyTitle, setEmptyTitle] = useState('Loading...')
@@ -24,15 +23,15 @@ function PastBookings(props) {
             setStartDate(dates[0])
             setEndDate(dates[1])
             setIsLoading(true)
-            axios.post('http://ec2-52-15-191-227.us-east-2.compute.amazonaws.com/superadmin/branch/getslotdetails', {
+            axios.post(`${_services.baseURL}/superadmin/branch/getslotdetails`, {
                 BranchID: _services.selectedShop.BranchID,
                 UserID: user.UserID,
-                StartDate: moment(new Date(dates[0])).format('YYYY-MM-DD'),
-                EndDate: moment(new Date(dates[1])).format('YYYY-MM-DD')
+                StartDate: moment(new Date(dates[0])).format(_services.dateFormat_API),
+                EndDate: moment(new Date(dates[1])).format(_services.dateFormat_API)
             }).then(resp => {
                 let _slots = resp.data.data
                 _slots.map(item => {
-                    item.BookedDate = moment(new Date(item.SelectedDateRange)).format(dateFormat)
+                    item.BookedDate = moment(new Date(item.SelectedDateRange)).format(_services.dateFormat_UI)
                 })
                 let uniqueBookedDates = [...new Set(_slots.map(item => item.BookedDate))];
                 let _newSlots = []
@@ -45,7 +44,7 @@ function PastBookings(props) {
                 })
                 setSlots(_newSlots)
                 if (!_newSlots.length) {
-                    setEmptyTitle('No slots are booked between ' + moment(new Date(dates[0])).format(dateFormat) + ' and ' + moment(new Date(dates[1])).format(dateFormat))
+                    setEmptyTitle('No slots are booked between ' + moment(new Date(dates[0])).format(_services.dateFormat_UI) + ' and ' + moment(new Date(dates[1])).format(_services.dateFormat_UI))
                 }
                 setIsLoading(false)
             }).catch(err => {
@@ -57,15 +56,15 @@ function PastBookings(props) {
 
     useEffect(() => {
         setIsLoading(true)
-        axios.post('http://ec2-52-15-191-227.us-east-2.compute.amazonaws.com/superadmin/branch/getslotdetails', {
+        axios.post(`${_services.baseURL}/superadmin/branch/getslotdetails`, {
             BranchID: _services.selectedShop.BranchID,
             UserID: user.UserID,
-            StartDate: moment(lastFiveDate).format('YYYY-MM-DD'),
-            EndDate: moment(new Date()).format('YYYY-MM-DD')
+            StartDate: moment(lastFiveDate).format(_services.dateFormat_API),
+            EndDate: moment(new Date()).format(_services.dateFormat_API)
         }).then(resp => {
             let _slots = resp.data.data
             _slots.map(item => {
-                item.BookedDate = moment(new Date(item.SelectedDateRange)).format(dateFormat)
+                item.BookedDate = moment(new Date(item.SelectedDateRange)).format(_services.dateFormat_UI)
             })
             let uniqueBookedDates = [...new Set(_slots.map(item => item.BookedDate))];
             let _newSlots = []
@@ -78,7 +77,7 @@ function PastBookings(props) {
             })
             setSlots(_newSlots)
             if (!_newSlots.length) {
-                setEmptyTitle('No slots are booked between ' + moment(lastFiveDate).format(dateFormat) + ' and ' + moment(new Date()).format(dateFormat))
+                setEmptyTitle('No slots are booked between ' + moment(lastFiveDate).format(_services.dateFormat_UI) + ' and ' + moment(new Date()).format(_services.dateFormat_UI))
             }
             setIsLoading(false)
         }).catch(err => {
@@ -104,7 +103,7 @@ function PastBookings(props) {
                     <div style={{ 'flexGrow': 1 }}>
                         <RangePicker
                             defaultValue={[startDate, endDate]}
-                            format={dateFormat}
+                            format={_services.dateFormat_UI}
                             onChange={onChange}
                         />
                     </div>

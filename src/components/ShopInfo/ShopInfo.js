@@ -17,7 +17,7 @@ function ShopInfo(props) {
 
     useEffect(() => {
         setIsLoading(true)
-        axios.post('http://ec2-52-15-191-227.us-east-2.compute.amazonaws.com/superadmin/branch/getbranch_id', {
+        axios.post(`${_services.baseURL}/superadmin/branch/getbranch_id`, {
             BranchID: _services.selectedShop.BranchID,
             UserID: user.UserID,
         }).then(resp => {

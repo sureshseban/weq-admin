@@ -20,8 +20,8 @@ function App() {
           <Menu />
           <Route exact path='/add-shop' component={AddShop} ></Route>
           <Route exact path='/my-shops' component={MyShops} ></Route>
-          <Route path='/home' render={() => (
-            _services.selectedShop !== null ? (<Home />) : (<Redirect to='/my-shops' />)
+          <Route path='/home' render={(props) => (
+            _services.selectedShop !== null ? (<Home {...props} />) : (<Redirect to='/my-shops' />)
           )} ></Route>
         </React.Fragment>
       </Switch>

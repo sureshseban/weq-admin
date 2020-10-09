@@ -5,7 +5,8 @@ import { Input, Form, TimePicker, Select } from 'formik-antd'
 import * as Yup from 'yup'
 import LocationPicker from 'react-location-picker'
 import axios from 'axios'
-import { Spin, Alert } from 'antd'
+import { Spin } from 'antd'
+import _services from '../../utils/services'
 
 function AddShop(props) {
 
@@ -58,7 +59,7 @@ function AddShop(props) {
         const _EndTime = _EndDateTime.toLocaleTimeString('en-GB')
         setIsLoading(true)
 
-        axios.post('http://ec2-52-15-191-227.us-east-2.compute.amazonaws.com/superadmin/branch/addbranch', {
+        axios.post(`${_services.baseURL}/superadmin/branch/addbranch`, {
             UserID: user.UserID,
             BranchName: values.ShopName,
             CategoryID: values.Category,
@@ -100,7 +101,7 @@ function AddShop(props) {
 
     useEffect(() => {
         setIsLoading(true)
-        axios.post('http://ec2-52-15-191-227.us-east-2.compute.amazonaws.com/superadmin/branch/getallcategories', {
+        axios.post(`${_services.baseURL}/superadmin/branch/getallcategories`, {
             UserID: user.UserID
         }).then(resp => {
             let _categories = []

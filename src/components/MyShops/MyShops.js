@@ -21,7 +21,7 @@ function MyShops(props) {
     useEffect(() => {
         setIsLoading(true)
         const user = JSON.parse(localStorage.user)
-        axios.post('http://ec2-52-15-191-227.us-east-2.compute.amazonaws.com/superadmin/branch/getallbranches', {
+        axios.post(`${_services.baseURL}/superadmin/branch/getallbranches`, {
             UserID: user.UserID,
             ClientID: user.ClientID
         }).then(resp => {

@@ -7,6 +7,7 @@ import { NavLink } from 'react-router-dom'
 import { Spin, Alert } from 'antd'
 import OtpInput from 'react-otp-input'
 import axios from 'axios'
+import _services from '../../utils/services'
 
 function Register(props) {
 
@@ -34,7 +35,7 @@ function Register(props) {
 
     const onSubmit = values => {
         setSpinning(true)
-        axios.post('http://ec2-52-15-191-227.us-east-2.compute.amazonaws.com/superadmin/auth/register', {
+        axios.post(`${_services.baseURL}/superadmin/auth/register`, {
             ClientName: values.ClientName,
             FirstName: values.FirstName,
             LastName: values.LastName,
@@ -65,7 +66,7 @@ function Register(props) {
     const onOTPSubmit = values => {
         setSpinningAll(true)
         const user = JSON.parse(localStorage.getItem('user'))
-        axios.post('http://ec2-52-15-191-227.us-east-2.compute.amazonaws.com/superadmin/auth/verify', {
+        axios.post(`${_services.baseURL}/superadmin/auth/verify`, {
             PhoneNumber: user.PhoneNumber,
             code: otp
         }).then(resp => {

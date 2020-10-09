@@ -8,7 +8,6 @@ import _services from '../../utils/services'
 function TodaysBookings(props) {
 
     const user = JSON.parse(localStorage.user)
-    const dateFormat = 'YYYY-MM-DD'
     const [morningSlots, setMorningSlots] = useState([])
     const [afternoonSlots, setAfternoonSlots] = useState([])
     const [eveningSlots, setEveningSlots] = useState([])
@@ -25,11 +24,11 @@ function TodaysBookings(props) {
 
     useEffect(() => {
         setIsLoading(true)
-        axios.post('http://ec2-52-15-191-227.us-east-2.compute.amazonaws.com/superadmin/branch/getslotdetails', {
+        axios.post(`${_services.baseURL}/superadmin/branch/getslotdetails`, {
             BranchID: _services.selectedShop.BranchID,
             UserID: user.UserID,
-            StartDate: moment(new Date()).format(dateFormat),
-            EndDate: moment(new Date()).format(dateFormat)
+            StartDate: moment(new Date()).format(_services.dateFormat_API),
+            EndDate: moment(new Date()).format(_services.dateFormat_API)
         }).then(resp => {
             const _slots = groupBy(resp.data.config, 'DaySequence')
             setMorningSlots(_slots.Morning)
