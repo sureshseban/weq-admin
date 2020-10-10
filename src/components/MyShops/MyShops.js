@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Input, Result } from 'antd'
 import './MyShops.css'
 import { Spin } from 'antd'
 import _services from '../../utils/services'
-import useHttp from '../../hooks/http'
+import { useHttpPost } from '../../hooks/http'
 const logo = require('../../assets/images/Shopping Cart-ico.svg');
 const pointer = require('../../assets/images/Pointer.svg');
 
@@ -12,7 +12,7 @@ function MyShops(props) {
     const user = JSON.parse(localStorage.user)
     const [filter, setFilter] = useState('')
 
-    const [isLoading, fetchedData] = useHttp('/superadmin/branch/getallbranches', {
+    const [isLoading, fetchedData] = useHttpPost('/superadmin/branch/getallbranches', {
         UserID: user.UserID,
         ClientID: user.ClientID
     }, [])
