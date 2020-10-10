@@ -1,37 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import { Input, Result } from 'antd'
 import './MyShops.css'
-import axios from 'axios'
 import { Spin } from 'antd'
 import _services from '../../utils/services'
+import useHttp from '../../hooks/http'
 const logo = require('../../assets/images/Shopping Cart-ico.svg');
 const pointer = require('../../assets/images/Pointer.svg');
 
 function MyShops(props) {
 
     const user = JSON.parse(localStorage.user)
-    const [shops, setShops] = useState([])
-    const [isLoading, setIsLoading] = useState(false)
     const [filter, setFilter] = useState('')
 
-    let filteredShops = shops.filter(element => {
-        return element.BranchName.toLowerCase().includes(filter.toLowerCase());
-    });
-
-    useEffect(() => {
-        setIsLoading(true)
-        const user = JSON.parse(localStorage.user)
-        axios.post(`${_services.baseURL}/superadmin/branch/getallbranches`, {
-            UserID: user.UserID,
-            ClientID: user.ClientID
-        }).then(resp => {
-            setShops(resp.data.data)
-            setIsLoading(false)
-        }).catch(err => {
-            setIsLoading(false)
-            console.log(err);
-        })
+    const [isLoading, fetchedData] = useHttp('/superadmin/branch/getallbranches', {
+        UserID: user.UserID,
+        ClientID: user.ClientID
     }, [])
+
+    let filteredShops = fetchedData ? fetchedData.data.data.filter(element => {
+        return element.BranchName.toLowerCase().includes(filter.toLowerCase());
+    }) : []
 
     const onSearch = (filter) => {
         setFilter(filter)
