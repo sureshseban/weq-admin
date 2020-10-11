@@ -15,7 +15,7 @@ function MyShops(props) {
     const [isLoading, fetchedData] = useHttpPost('/superadmin/branch/getallbranches', {
         UserID: user.UserID,
         ClientID: user.ClientID
-    }, [])
+    }, [user.UserID, user.ClientID])
 
     let filteredShops = fetchedData ? fetchedData.data.data.filter(element => {
         return element.BranchName.toLowerCase().includes(filter.toLowerCase());
