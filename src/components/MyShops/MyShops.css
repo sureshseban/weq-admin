@@ -40,7 +40,6 @@
 .shop-grid-item:hover{
     cursor: pointer;
     box-shadow: 0 0 5px 0 #53b4d4;
-    border: 1px solid #53b4d4;
 }
 .img {
     height: 84px;

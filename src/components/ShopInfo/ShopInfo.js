@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import LocationPicker from 'react-location-picker'
-import { Spin } from 'antd'
+import { Spin, Result } from 'antd'
 import moment from 'moment'
 import _services from '../../utils/services'
 import { useHttpPost } from '../../hooks/http'
@@ -70,13 +70,12 @@ function ShopInfo(props) {
     })
 
     const onSubmit = (values) => {
+        setLoading(true)
         console.log(values)
-        console.log('values', values);
         const _StartDateTime = new Date(values.StartTime)
         const _StartTime = _StartDateTime.toLocaleTimeString('en-GB')
         const _EndDateTime = new Date(values.EndTime)
         const _EndTime = _EndDateTime.toLocaleTimeString('en-GB')
-        setLoading(true)
 
         axios.post(`${_services.baseURL}/superadmin/branch/editbranch`, {
             BranchID: shopDetails.BranchID,
@@ -114,7 +113,7 @@ function ShopInfo(props) {
     }
 
     return (
-        <React.Fragment>
+        <Spin spinning={isLoading}>
             {
                 shopDetails && categories ?
                     <Formik
@@ -138,7 +137,6 @@ function ShopInfo(props) {
                         validationSchema={validationSchema}
                         onSubmit={onSubmit} >
                         <Form>
-                            {/* <Spin spinning={isLoading}> */}
                             <div className='add-bracnch-section'>
                                 {
                                     shopDetails ?
@@ -351,7 +349,7 @@ function ShopInfo(props) {
                                                                     placeholder="Select Start Time"
                                                                     name='StartTime'
                                                                     format='h:mm A'></TimePicker>
-                                                            </Form.Item> : <span>{moment(shopDetails.BranchStartTime || 0, ["HH"]).format("hh A")}</span>
+                                                            </Form.Item> : <span>{moment(shopDetails.BranchStartTime || 0, ["HH"]).format("h:mm A")}</span>
                                                         }
                                                     </div>
                                                 </div>
@@ -368,7 +366,7 @@ function ShopInfo(props) {
                                                                     placeholder="Select End Time"
                                                                     name='EndTime'
                                                                     format='h:mm A'></TimePicker>
-                                                            </Form.Item> : <span>{moment(shopDetails.BranchEndTime || 0, ["HH"]).format("hh A")}</span>
+                                                            </Form.Item> : <span>{moment(shopDetails.BranchEndTime || 0, ["HH"]).format("h:mm A")}</span>
                                                         }
                                                     </div>
                                                 </div>
@@ -428,13 +426,15 @@ function ShopInfo(props) {
                                         </React.Fragment> : null
                                 }
                             </div>
-                            {/* </Spin> */}
                         </Form>
-                    </Formik > : <Spin spinning={isLoading}>
-                        <div className='branch-details'></div>
-                    </Spin>
+                    </Formik > : <Result
+                        title='Loading...'
+                    />
+                // 
+                //     <div className='add-bracnch-section'></div>
+                // </Spin>
             }
-        </React.Fragment>
+        </Spin>
     )
 }
 
