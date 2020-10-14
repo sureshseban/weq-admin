@@ -1,24 +1,43 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import LocationPicker from 'react-location-picker'
 import { Spin } from 'antd'
 import moment from 'moment'
 import _services from '../../utils/services'
 import { useHttpPost } from '../../hooks/http'
 import { Formik } from 'formik'
-import { Input, Form, TimePicker } from 'formik-antd'
+import { Input, Form, TimePicker, Select } from 'formik-antd'
 import * as Yup from 'yup'
 import useDocumentTitle from '../../hooks/useDocumentTitle'
+import axios from 'axios'
 
 function ShopInfo(props) {
 
     const user = JSON.parse(localStorage.user)
 
+    const [loading, setLoading] = useState(false)
+    const [categories, setCategories] = useState([])
     const [showEdit, setShowEdit] = useState(false)
     const [isLoading, fetchedData] = useHttpPost('/superadmin/branch/getbranch_id', {
         BranchID: _services.selectedShop.BranchID,
         UserID: user.UserID
     }, [])
+
     useDocumentTitle('Shop Info')
+
+    useEffect(() => {
+        axios.post(`${_services.baseURL}/superadmin/branch/getallcategories`, {
+            UserID: user.UserID
+        }).then(resp => {
+            let _categories = []
+            resp.data.data.forEach(element => {
+                const _category = new SelectOptions(element.CategoryID, element.CategoryName)
+                _categories.push(_category)
+            });
+            setCategories(_categories)
+        }).catch(err => {
+            console.log(err);
+        })
+    }, [])
 
     const shopDetails = fetchedData ? fetchedData.data.data[0] : null
 
@@ -35,6 +54,8 @@ function ShopInfo(props) {
     }
 
     const validationSchema = Yup.object({
+        ShopName: Yup.string().required('Shop Name required!'),
+        Category: Yup.string().required('Category required!'),
         Building: Yup.string().required('Building required!'),
         StreetName: Yup.string().required('Street Name required!'),
         City: Yup.string().required('City required!'),
@@ -50,14 +71,56 @@ function ShopInfo(props) {
 
     const onSubmit = (values) => {
         console.log(values)
+        console.log('values', values);
+        const _StartDateTime = new Date(values.StartTime)
+        const _StartTime = _StartDateTime.toLocaleTimeString('en-GB')
+        const _EndDateTime = new Date(values.EndTime)
+        const _EndTime = _EndDateTime.toLocaleTimeString('en-GB')
+        setLoading(true)
+
+        axios.post(`${_services.baseURL}/superadmin/branch/editbranch`, {
+            BranchID: shopDetails.BranchID,
+            UserID: user.UserID,
+            BranchName: values.ShopName,
+            CategoryID: values.Category,
+            ClientID: user.ClientID,
+            BranchPhoneNumber: values.SecondaryContact,
+            BranchEmailID: values.Email,
+            IsBranchSupervisor: false,
+            AdminPhoneNumber: null,
+            AdminUserID: null,
+            BuildingNumber: values.Building,
+            StreetName: values.StreetName,
+            City: values.City,
+            State: values.State,
+            Country: values.Country,
+            Pincode: values.Pincode,
+            Latitude: location.lat,
+            Longitude: location.lng,
+            BranchStartTime: _StartTime,
+            BranchEndTime: _EndTime,
+            SlotInMinutes: values.SlotDuration,
+            MaximumBookingCount: values.MaximumBookingCount,
+            EntryInEachSlot: values.VisitorsInEachSlot,
+            WorkingDayList: '0,1,2,3,4,5,6',
+            BranchImage: null
+        }).then(resp => {
+            setLoading(false)
+            props.history.push("/my-shops")
+        }).catch(err => {
+            setLoading(false)
+            console.log(err);
+        })
     }
 
     return (
         <React.Fragment>
             {
-                shopDetails ?
+                shopDetails && categories ?
                     <Formik
                         initialValues={{
+                            ShopName: shopDetails.BranchName,
+                            Category: shopDetails.CategoryID,
                             SecondaryContact: shopDetails.BranchPhoneNumber,
                             Email: shopDetails.BranchEmailID,
                             Building: shopDetails.BuildingNumber,
@@ -84,6 +147,39 @@ function ShopInfo(props) {
                                                 <div className="ant-form-item">
                                                     Contact
                         </div>
+                                                {
+                                                    showEdit ? <div className='ant-form-item' style={{ display: 'flex' }}>
+                                                        <div className='ant-col-xs-12' style={{ paddingRight: '8px' }}>
+                                                            <div className="field-label">
+                                                                Shop Name
+</div>
+                                                            <Form.Item
+                                                                name="ShopName"
+                                                                hasFeedback
+                                                                showValidateSuccess
+                                                            >
+                                                                <Input
+                                                                    name="ShopName"
+                                                                    autoComplete="off"
+                                                                    placeholder="Shop Name" />
+                                                            </Form.Item>
+                                                        </div>
+                                                        <div className='ant-col-xs-12' style={{ paddingLeft: '8px' }}>
+                                                            <div className="field-label">
+                                                                Shop Category
+</div>
+                                                            <Form.Item
+                                                                name="Category"
+                                                                hasFeedback
+                                                                showValidateSuccess
+                                                            >
+                                                                <Select name="Category" options={categories}
+                                                                    placeholder="Select Category" />
+                                                            </Form.Item>
+                                                        </div>
+                                                    </div> : null
+                                                }
+
                                                 <div className='ant-form-item' style={{ display: 'flex' }}>
                                                     <div className='ant-col-xs-12' style={{ paddingRight: '8px' }}>
                                                         <div className="field-label">
@@ -109,6 +205,8 @@ function ShopInfo(props) {
                                                         {
                                                             showEdit ? <Form.Item
                                                                 name="Email"
+                                                                hasFeedback
+                                                                showValidateSuccess
                                                             >
                                                                 <Input
                                                                     name="Email" autoComplete="off" placeholder="Email" />
@@ -323,7 +421,7 @@ function ShopInfo(props) {
                                                     showEdit ? <div className='ant-form-item'>
                                                         <button type="submit" className="login-btn">Submit</button>
                                                     </div> : <div className='ant-form-item'>
-                                                            <button type="button" onClick={() => setShowEdit(true)} className="login-btn">Edit Shop Details</button>
+                                                            <div onClick={() => setShowEdit(true)} className="login-btn">Edit Shop Details</div>
                                                         </div>
                                                 }
                                             </div>
@@ -338,6 +436,13 @@ function ShopInfo(props) {
             }
         </React.Fragment>
     )
+}
+
+class SelectOptions {
+    constructor(value, label) {
+        this.value = value
+        this.label = label
+    }
 }
 
 export default ShopInfo

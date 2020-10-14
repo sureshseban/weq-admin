@@ -173,6 +173,8 @@ function AddShop(props) {
                         </div>
                                     <Form.Item
                                         name="Email"
+                                        hasFeedback
+                                        showValidateSuccess
                                     >
                                         <Input name="Email" autoComplete="off" placeholder="Email" />
                                     </Form.Item>
