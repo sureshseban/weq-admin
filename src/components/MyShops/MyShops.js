@@ -4,6 +4,7 @@ import './MyShops.css'
 import { Spin } from 'antd'
 import _services from '../../utils/services'
 import { useHttpPost } from '../../hooks/http'
+import useDocumentTitle from '../../hooks/useDocumentTitle'
 const logo = require('../../assets/images/Shopping Cart-ico.svg');
 const pointer = require('../../assets/images/Pointer.svg');
 
@@ -12,6 +13,7 @@ function MyShops(props) {
     const user = JSON.parse(localStorage.user)
     const [filter, setFilter] = useState('')
 
+    useDocumentTitle('My Shops')
     const [isLoading, fetchedData] = useHttpPost('/superadmin/branch/getallbranches', {
         UserID: user.UserID,
         ClientID: user.ClientID

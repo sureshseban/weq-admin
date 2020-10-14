@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Formik } from 'formik'
 import './Register.css'
 import { Input, Form } from 'formik-antd'
@@ -8,6 +8,7 @@ import { Spin, Alert } from 'antd'
 import OtpInput from 'react-otp-input'
 import axios from 'axios'
 import _services from '../../utils/services'
+import useDocumentTitle from '../../hooks/useDocumentTitle'
 
 function Register(props) {
 
@@ -25,6 +26,7 @@ function Register(props) {
     const [showOTPScreen, setShowOTPScreen] = useState(false)
     const [showAlert, setShowAlert] = useState(false)
 
+    useDocumentTitle('Registration')
 
     const validationSchema = Yup.object({
         PhoneNumber: Yup.string().required('Mobile Number required!'),

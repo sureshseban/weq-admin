@@ -7,6 +7,7 @@ import LocationPicker from 'react-location-picker'
 import axios from 'axios'
 import { Spin } from 'antd'
 import _services from '../../utils/services'
+import useDocumentTitle from '../../hooks/useDocumentTitle'
 
 function AddShop(props) {
 
@@ -116,6 +117,7 @@ function AddShop(props) {
             console.log(err);
         })
     }, [])
+    useDocumentTitle('Add Shop')
 
     return (
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} >

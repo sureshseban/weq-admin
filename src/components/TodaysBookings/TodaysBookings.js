@@ -4,6 +4,7 @@ import axios from 'axios'
 import { Spin, Result } from 'antd'
 import moment from 'moment'
 import _services from '../../utils/services'
+import useDocumentTitle from '../../hooks/useDocumentTitle'
 
 function TodaysBookings(props) {
 
@@ -40,6 +41,7 @@ function TodaysBookings(props) {
             console.log(err);
         })
     }, [])
+    useDocumentTitle('Todays Bookings')
 
     return (
         <Spin spinning={isLoading}>

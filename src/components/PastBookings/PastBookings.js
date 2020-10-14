@@ -5,6 +5,7 @@ import axios from 'axios'
 import { Spin, Result, Popover } from 'antd'
 import moment from 'moment'
 import _services from '../../utils/services'
+import useDocumentTitle from '../../hooks/useDocumentTitle'
 const { RangePicker } = DatePicker;
 
 function PastBookings(props) {
@@ -85,6 +86,8 @@ function PastBookings(props) {
             console.log(err);
         })
     }, [])
+
+    useDocumentTitle('Past Bookings')
 
     const onSearch = (filter) => { }
 

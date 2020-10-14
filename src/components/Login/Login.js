@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Formik } from 'formik'
 import './Login.css'
 import { Input, Form } from 'formik-antd'
@@ -9,6 +9,7 @@ import { Spin, Alert } from 'antd';
 import OtpInput from 'react-otp-input';
 import axios from 'axios'
 import _services from '../../utils/services'
+import useDocumentTitle from '../../hooks/useDocumentTitle'
 
 function Login(props) {
 
@@ -22,6 +23,8 @@ function Login(props) {
     const [spinningAll, setSpinningAll] = useState(false)
     const [showOTPScreen, setShowOTPScreen] = useState(false)
     const [showAlert, setShowAlert] = useState(false)
+
+    useDocumentTitle('Login')
 
     const validationSchema = Yup.object({
         username: Yup.string().required('Mobile Number required!')
