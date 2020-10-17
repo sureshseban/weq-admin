@@ -9,6 +9,7 @@ import AddShop from './components/AddShop/AddShop';
 import MyShops from './components/MyShops/MyShops';
 import Home from './components/Home/Home';
 import _services from './utils/services';
+import MyProfile from './components/MyProfile/MyProfile';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Menu />
           <Route exact path='/add-shop' component={AddShop} ></Route>
           <Route exact path='/my-shops' component={MyShops} ></Route>
+          <Route exact path='/my-profile' component={MyProfile} ></Route>
           <Route path='/home' render={(props) => (
             _services.selectedShop !== null ? (<Home {...props} />) : (<Redirect to='/my-shops' />)
           )} ></Route>

@@ -1,9 +1,21 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import './Menu.css'
+import { Popover } from 'antd';
 const logo = require('../../assets/images/WEQ-logo.svg');
+const user = require('../../assets/images/user.svg');
 
 function Menu(props) {
+    const content = (
+        <div>
+            <p>
+                <NavLink activeClassName='activeMenuLink' exact to="/my-profile">My Profile</NavLink>
+            </p>
+            <p>
+                <NavLink activeClassName='activeMenuLink' exact to="/login">Signout</NavLink>
+            </p>
+        </div>
+    );
     return (
         <header id="header" className="clearfix">
             <div className="ant-row" style={{ 'flexFlow': "nowrap" }}>
@@ -14,9 +26,6 @@ function Menu(props) {
                     <div id="search-box" style={{ visibility: 'hidden' }}>
                     </div>
                     <ul className="ant-menu ant-menu-light menu-site ant-menu-root ant-menu-horizontal" id="nav" direction="ltr" role="menu">
-                        {/* <li className="ant-menu-item ant-menu-item-only-child" role="menuitem">
-                            <NavLink activeClassName='activeMenuLink' exact to="/home">Home</NavLink>
-                        </li> */}
                         <li className="ant-menu-item ant-menu-item-only-child" role="menuitem">
                             <NavLink activeClassName='activeMenuLink' exact to="/my-shops">Home</NavLink>
                         </li>
@@ -24,7 +33,9 @@ function Menu(props) {
                             <NavLink activeClassName='activeMenuLink' exact to="/add-shop">Add Shop</NavLink>
                         </li>
                         <li className="ant-menu-item ant-menu-item-only-child" role="menuitem">
-                            <NavLink activeClassName='activeMenuLink' exact to="/login">Signout</NavLink>
+                            <Popover placement="bottom" title='' content={content} trigger="click">
+                                <img className="logo1" alt="logo" src={user} />
+                            </Popover>
                         </li>
                     </ul>
                 </div>
