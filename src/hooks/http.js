@@ -39,3 +39,22 @@ export const useHttpPost = (url, req, dependencies) => {
 
     return [isLoading, fetchedData]
 }
+
+export const useHttpPost_processData = (url, req, dependencies, processData) => {
+
+    const [isLoading, setIsLoading] = useState(false)
+    const [fetchedData, setFetchedData] = useState(null)
+
+    useEffect(() => {
+        setIsLoading(true)
+        axios.post(`${_services.baseURL}${url}`, req).then(data => {
+            setFetchedData(processData(data))
+            setIsLoading(false)
+        }).catch(err => {
+            setIsLoading(false)
+            console.log(err);
+        })
+    }, dependencies)
+
+    return [isLoading, fetchedData]
+}

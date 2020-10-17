@@ -3,7 +3,7 @@ import LocationPicker from 'react-location-picker'
 import { Spin, Result } from 'antd'
 import moment from 'moment'
 import _services from '../../utils/services'
-import { useHttpPost } from '../../hooks/http'
+import { useHttpPost, useHttpPost_processData } from '../../hooks/http'
 import { Formik } from 'formik'
 import { Input, Form, TimePicker, Select } from 'formik-antd'
 import * as Yup from 'yup'
@@ -15,29 +15,26 @@ function ShopInfo(props) {
     const user = JSON.parse(localStorage.user)
 
     const [loading, setLoading] = useState(false)
-    const [categories, setCategories] = useState([])
     const [showEdit, setShowEdit] = useState(false)
     const [isLoading, fetchedData] = useHttpPost('/superadmin/branch/getbranch_id', {
         BranchID: _services.selectedShop.BranchID,
         UserID: user.UserID
-    }, [])
+    }, [_services.selectedShop.BranchID, user.UserID])
 
     useDocumentTitle('Shop Info')
 
-    useEffect(() => {
-        axios.post(`${_services.baseURL}/superadmin/branch/getallcategories`, {
-            UserID: user.UserID
-        }).then(resp => {
-            let _categories = []
-            resp.data.data.forEach(element => {
-                const _category = new SelectOptions(element.CategoryID, element.CategoryName)
-                _categories.push(_category)
-            });
-            setCategories(_categories)
-        }).catch(err => {
-            console.log(err);
-        })
-    }, [])
+    const processData = (fetchedData) => {
+        let categories = []
+        fetchedData.data.data.forEach(element => {
+            const category = new SelectOptions(element.CategoryID, element.CategoryName)
+            categories.push(category)
+        });
+        return categories
+    }
+
+    const [_isLoading, categories] = useHttpPost_processData('/superadmin/branch/getallcategories', {
+        UserID: user.UserID
+    }, [user.UserID], processData)
 
     const shopDetails = fetchedData ? fetchedData.data.data[0] : null
 
