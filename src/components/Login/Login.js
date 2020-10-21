@@ -71,6 +71,10 @@ function Login(props) {
         })
     }
 
+    const handleChange = otp => {
+        setOTP(otp)
+    }
+
     const logoStyle = {
         backgroundImage: `url(${process.env.PUBLIC_URL}/logo.svg)`
     }
@@ -113,7 +117,7 @@ function Login(props) {
                                 <div id="otp-input-root">
                                     <OtpInput
                                         value={otp}
-                                        onChange={() => setOTP(otp)}
+                                        onChange={handleChange}
                                         numInputs={4}
                                         isInputNum
                                     />
