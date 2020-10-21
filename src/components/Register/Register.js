@@ -8,7 +8,7 @@ import { Spin, Alert } from 'antd'
 import OtpInput from 'react-otp-input'
 import axios from 'axios'
 import _services from '../../utils/services'
-import useDocumentTitle from '../../hooks/useDocumentTitle'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 
 function Register(props) {
 

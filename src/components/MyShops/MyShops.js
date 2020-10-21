@@ -3,8 +3,8 @@ import { Input, Result } from 'antd'
 import './MyShops.css'
 import { Spin } from 'antd'
 import _services from '../../utils/services'
-import { useHttpPost } from '../../hooks/http'
-import useDocumentTitle from '../../hooks/useDocumentTitle'
+import { useHttpPost } from '../hooks/http'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 const logo = require('../../assets/images/Shopping Cart-ico.svg');
 const pointer = require('../../assets/images/Pointer.svg');
 

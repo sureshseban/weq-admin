@@ -7,7 +7,7 @@ import LocationPicker from 'react-location-picker'
 import axios from 'axios'
 import { Spin } from 'antd'
 import _services from '../../utils/services'
-import useDocumentTitle from '../../hooks/useDocumentTitle'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 
 function AddShop(props) {
 

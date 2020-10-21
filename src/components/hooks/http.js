@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import _services from '../utils/services'
+import _services from '../../utils/services'
 
 export const useHttpGet = (url, dependencies) => {
 

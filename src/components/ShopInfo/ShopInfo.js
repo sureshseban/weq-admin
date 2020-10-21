@@ -3,11 +3,11 @@ import LocationPicker from 'react-location-picker'
 import { Spin, Result } from 'antd'
 import moment from 'moment'
 import _services from '../../utils/services'
-import { useHttpPost, useHttpPost_processData } from '../../hooks/http'
+import { useHttpPost, useHttpPost_processData } from '../hooks/http'
 import { Formik } from 'formik'
 import { Input, Form, TimePicker, Select } from 'formik-antd'
 import * as Yup from 'yup'
-import useDocumentTitle from '../../hooks/useDocumentTitle'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 import axios from 'axios'
 
 function ShopInfo(props) {

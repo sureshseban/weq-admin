@@ -9,7 +9,7 @@ import { Spin, Alert } from 'antd';
 import OtpInput from 'react-otp-input';
 import axios from 'axios'
 import _services from '../../utils/services'
-import useDocumentTitle from '../../hooks/useDocumentTitle'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 
 function Login(props) {
 
@@ -71,14 +71,6 @@ function Login(props) {
         })
     }
 
-    const handleChange = otp => {
-        setOTP(otp)
-    }
-
-    const changeUserName = () => {
-        setShowAlert(false)
-    }
-
     const logoStyle = {
         backgroundImage: `url(${process.env.PUBLIC_URL}/logo.svg)`
     }
@@ -102,7 +94,7 @@ function Login(props) {
                                     hasFeedback
                                     showValidateSuccess
                                 >
-                                    <Input name="username" onChange={changeUserName} autoComplete="off" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Mobile Number" />
+                                    <Input name="username" onChange={() => setShowAlert(false)} autoComplete="off" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Mobile Number" />
                                 </Form.Item>
                                 {
                                     !showOTPScreen ? <div className='ant-form-item'>
@@ -121,7 +113,7 @@ function Login(props) {
                                 <div id="otp-input-root">
                                     <OtpInput
                                         value={otp}
-                                        onChange={handleChange}
+                                        onChange={() => setOTP(otp)}
                                         numInputs={4}
                                         isInputNum
                                     />
