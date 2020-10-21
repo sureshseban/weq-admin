@@ -8,8 +8,9 @@ import MyShops from '../MyShops/MyShops';
 import Home from '../Home/Home';
 import _services from '../../utils/services';
 import MyProfile from '../MyProfile/MyProfile';
+import ProtectedRoute from './ProtectedRoute';
 
-const Router = () => {
+const Router = (props) => {
     return (
         <BrowserRouter>
             <Switch>
@@ -17,12 +18,24 @@ const Router = () => {
                 <Route exact path='/' component={Register} ></Route>
                 <React.Fragment>
                     <Menu />
-                    <Route exact path='/add-shop' component={AddShop} ></Route>
-                    <Route exact path='/my-shops' component={MyShops} ></Route>
-                    <Route exact path='/my-profile' component={MyProfile} ></Route>
+                    <ProtectedRoute exact
+                        path='/my-shops'
+                        Component={MyShops}
+                        isAuthenticated={_services.isAuthenticated}
+                        {...props} />
+                    <ProtectedRoute exact
+                        path='/add-shop'
+                        Component={AddShop}
+                        isAuthenticated={_services.isAuthenticated}
+                        {...props} />
+                    <ProtectedRoute exact
+                        path='/my-profile'
+                        component={MyProfile}
+                        isAuthenticated={_services.isAuthenticated}
+                        {...props} />
                     <Route path='/home' render={(props) => (
                         _services.selectedShop !== null ? (<Home {...props} />) : (<Redirect to='/my-shops' />)
-                    )} ></Route>
+                    )} />
                 </React.Fragment>
             </Switch>
         </BrowserRouter>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Formik } from 'formik'
 import './Register.css'
 import { Input, Form } from 'formik-antd'

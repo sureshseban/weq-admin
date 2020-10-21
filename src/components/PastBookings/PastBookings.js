@@ -87,6 +87,12 @@ function PastBookings(props) {
         })
     }, [])
 
+    useEffect(() => {
+        return () => {
+            console.log('component will unmount');
+        };
+    }, [])
+
     useDocumentTitle('Past Bookings')
 
     const onSearch = (filter) => { }
