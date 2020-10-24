@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Input, Result } from 'antd'
+import { Result } from 'antd'
 import './MyShops.css'
 import { Spin } from 'antd'
 import _services from '../../utils/services'
 import { useHttpPost } from '../hooks/http'
 import useDocumentTitle from '../hooks/useDocumentTitle'
+import Filter from '../filter/Filter'
 const logo = require('../../assets/images/Shopping Cart-ico.svg');
 const pointer = require('../../assets/images/Pointer.svg');
 
@@ -48,7 +49,7 @@ function MyShops(props) {
                             }
                         </div>
                         <div>
-                            <Input placeholder="Search Shop Name" allowClear onChange={(e) => onSearch(e.target.value)} />
+                            <Filter onSearch={onSearch} />
                         </div>
                     </div>
                 </div>
